@@ -8,13 +8,21 @@
 #include <storage/storage_types.h>
 
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 class AbstractTable;
 
 class TableDiff {
-public:
-  enum RelationEqType {RelationEq, RelationEqSorted};
-  enum FieldCorrectness {FieldCorrect, FieldWrongType, FieldWrong};
+ public:
+  enum RelationEqType {
+    RelationEq,
+    RelationEqSorted
+  };
+  enum FieldCorrectness {
+    FieldCorrect,
+    FieldWrongType,
+    FieldWrong
+  };
 
   TableDiff() {}
   ~TableDiff() {}
@@ -33,8 +41,7 @@ public:
 
   std::vector<FieldCorrectness> fields;
   std::vector<size_t> wrongRows;
-  std::map<size_t,size_t> falsePositionRows;
+  std::map<size_t, size_t> falsePositionRows;
 };
-
-}}
-
+}
+}

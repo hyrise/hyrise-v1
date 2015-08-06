@@ -1,0 +1,69 @@
+{
+    "test": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl';
+             SELECT * FROM employees WHERE employee_company_id > 0 AND employee_company_id < 3 UNION SELECT * FROM employees WHERE employee_company_id = 3",
+             
+    "reference": {
+        "operators": {
+            "0": {
+                "type": "TableLoad",
+                "table": "employees",
+                "filename": "tables/employees.tbl"
+            },
+            "scan_gt0": {
+                "type": "SimpleTableScan",
+                "predicates": [
+                    {
+                        "type": "AND"
+                    },
+                    {
+                        "type": "GT",
+                        "in": 0,
+                        "f": "employee_company_id",
+                        "vtype": 0,
+                        "value": 0
+                    },
+                    {
+                        "type": "LT",
+                        "in": 0,
+                        "f": "employee_company_id",
+                        "vtype": 0,
+                        "value": 3
+                    }
+                ]
+            },
+            "scan_eq3": {
+                "type": "SimpleTableScan",
+                "predicates": [
+                    {
+                        "type": "EQ_V",
+                        "in": 0,
+                        "f": "employee_company_id",
+                        "vtype": 0,
+                        "value": 3
+                    }
+                ]
+            },
+            "intersect": {
+                "type": "UnionScan"
+            }
+        },
+        "edges": [
+            [
+                "0",
+                "scan_gt0"
+            ],
+            [
+                "0",
+                "scan_eq3"
+            ],
+            [
+                "scan_gt0",
+                "intersect"
+            ],
+            [
+                "scan_eq3",
+                "intersect"
+            ]
+        ]
+    }
+}

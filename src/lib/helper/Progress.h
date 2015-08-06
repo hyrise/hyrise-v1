@@ -12,8 +12,7 @@ class Progress {
   size_t _ticks;
 
  public:
-
-  explicit Progress(size_t ticks) : _steps(50), _current_step(0), _current_tick(0),  _ticks(ticks) {
+  explicit Progress(size_t ticks) : _steps(50), _current_step(0), _current_tick(0), _ticks(ticks) {
     if (ticks < _steps) {
       _steps = ticks;
     }
@@ -39,6 +38,4 @@ class Progress {
       _current_step += 100 / _steps;
     }
   }
-
 };
-

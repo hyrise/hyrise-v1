@@ -17,16 +17,16 @@ template <typename T>
 class AbstractFixedLengthVector : public BaseAttributeVector<T> {
  public:
   virtual const T& getRef(size_t column, size_t row) const = 0;
+  virtual T inc(size_t column, size_t row) = 0;
 };
 
 template <typename T>
-class FixedLengthVector : public AbstractFixedLengthVector<T> {
+class FixedLengthVector final : public AbstractFixedLengthVector<T> {
  public:
-  FixedLengthVector(std::size_t columns, std::size_t rows) :
-      _columns(columns), _values(columns * rows) {}
+  FixedLengthVector(std::size_t columns, std::size_t rows) : _columns(columns), _values(columns * rows) {}
 
   // Increment the value by 1
-  T inc(size_t column, size_t row) {
+  T inc(size_t column, size_t row) override {
     check_access(column, row);
     return _values[row * _columns + column]++;
   }
@@ -37,9 +37,7 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
     return __sync_fetch_and_add(&_values[row * _columns + column], 1);
   }
 
-  virtual T get(size_t column, size_t row) const override {
-    return getRef(column, row);
-  }
+  virtual T get(size_t column, size_t row) const override { return getRef(column, row); }
 
   virtual const T& getRef(size_t column, size_t row) const override {
     check_access(column, row);
@@ -51,41 +49,34 @@ class FixedLengthVector : public AbstractFixedLengthVector<T> {
     _values[row * _columns + column] = value;
   }
 
-  virtual void reserve(size_t rows) override {
-    _values.resize(_columns * rows);
-  }
+  virtual void reserve(size_t rows) override { _values.resize(_columns * rows); }
 
-  virtual void resize(size_t rows) override {
-    reserve(rows);
-  }
+  virtual void resize(size_t rows) override { reserve(rows); }
 
-  virtual std::uint64_t capacity() override {
-    return _values.capacity() / _columns;
-  }
+  virtual std::uint64_t capacity() override { return _values.capacity() / _columns; }
 
-  virtual std::uint64_t size() override {
-    return _values.size() / _columns;
-  }
+  virtual std::uint64_t size() override { return _values.size() / _columns; }
 
-  virtual void setNumRows(std::size_t num) override { NOT_IMPLEMENTED }
+  size_t getColumns() const override { return _columns; }
 
-  virtual std::shared_ptr<BaseAttributeVector<T>> copy() override {
-    return std::make_shared<FixedLengthVector>(*this);
-  }
+  virtual std::shared_ptr<BaseAttributeVector<T>> copy() override { return std::make_shared<FixedLengthVector>(*this); }
 
   virtual void clear() { _values.clear(); }
   virtual void rewriteColumn(const size_t, const size_t) {}
-  virtual void *data() override { return _values.data();}
+
  private:
   void check_access(std::size_t columns, std::size_t rows) const {
 #ifdef EXPENSIVE_ASSERTIONS
-    if (columns >= _columns) { throw std::out_of_range("Accessing column beyond boundaries"); }
-    if (rows >= (_values.size() / _columns)) { throw std::out_of_range("Accessing row beyond boundaries"); }
+    if (columns >= _columns) {
+      throw std::out_of_range("Accessing column beyond boundaries");
+    }
+    if (rows >= (_values.size() / _columns)) {
+      throw std::out_of_range("Accessing row beyond boundaries");
+    }
 #endif
   }
   const std::size_t _columns;
   std::vector<T> _values;
 };
-
-
-} } // namespace hyrise::storage
+}
+}  // namespace hyrise::storage

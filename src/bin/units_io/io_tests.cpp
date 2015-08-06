@@ -27,50 +27,37 @@ class IoTest : public ::hyrise::Test {
     fail_file_4 = "test/fail4.tbl";
     file_not_found = "test/file_not_found.tbl";
   }
-
 };
 
 
 TEST_F(IoTest, OldLoader_fail_test) {
-  ASSERT_THROW( {
-      Loader::shortcuts::load(fail_file_1);
-    }, Loader::Error);
-
+  ASSERT_THROW({ Loader::shortcuts::load(fail_file_1); }, Loader::Error);
 }
 
 TEST_F(IoTest, file_not_found) {
-  ASSERT_THROW( {
-      Loader::shortcuts::load(file_not_found);
-    }, Loader::Error);
+  ASSERT_THROW({ Loader::shortcuts::load(file_not_found); }, Loader::Error);
 }
 
 TEST_F(IoTest, wrong_header) {
-  ASSERT_THROW( {
-      Loader::shortcuts::loadWithStringHeader(fail_file_2, header);
-    }, Loader::Error);
+  ASSERT_THROW({ Loader::shortcuts::loadWithStringHeader(fail_file_2, header); }, Loader::Error);
 }
 
 TEST_F(IoTest, wrong_header2) {
-  ASSERT_THROW( {
-      Loader::shortcuts::loadWithStringHeader(fail_file_2, header_fail);
-    }, Loader::Error);
+  ASSERT_THROW({ Loader::shortcuts::loadWithStringHeader(fail_file_2, header_fail); }, Loader::Error);
 }
 
 TEST_F(IoTest, wrong_header3) {
-  ASSERT_THROW( {
-      Loader::shortcuts::loadWithStringHeader(fail_file_2, header_fail);
-    }, Loader::Error);
+  ASSERT_THROW({ Loader::shortcuts::loadWithStringHeader(fail_file_2, header_fail); }, Loader::Error);
 }
 
 TEST_F(IoTest, wrong_file) {
-  ASSERT_THROW( {
-      Loader::shortcuts::loadWithStringHeader(fail_file_3, "themen | epic\nINTEGER|INTEGER\n0_R|0_R")->print();
-    }, Loader::Error);
+  ASSERT_THROW(
+  { Loader::shortcuts::loadWithStringHeader(fail_file_3, "themen | epic\nINTEGER|INTEGER\n0_R|0_R")->print(); },
+      Loader::Error);
 
   // ASSERT_THROW({
   //         OldLoader::load_with_string_header(fail_file_4, "themen | epic\nINTEGER|INTEGER\n0_R|0_R");
   //     }, OldLoaderError);
 }
-
-} } // namespace hyrise::io
-
+}
+}  // namespace hyrise::io

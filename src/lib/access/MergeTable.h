@@ -8,7 +8,7 @@ namespace hyrise {
 namespace access {
 
 class MergeTable : public PlanOperation {
-public:
+ public:
   virtual ~MergeTable();
 
   void executePlanOperation();
@@ -17,13 +17,25 @@ public:
 };
 
 class MergeStore : public PlanOperation {
-public:
+ public:
   virtual ~MergeStore();
   void executePlanOperation();
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 };
 
+class MergeColumnStore : public PlanOperation {
+ public:
+  MergeColumnStore(bool forceFullIndexRebuild = false, std::string sortIndexName = "");
+  virtual ~MergeColumnStore();
+  void executePlanOperation();
+  void setForceFullIndexRebuild(bool force);
+  void setSortIndexName(std::string sortIndexName);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
+ private:
+  bool _forceFullIndexRebuild;
+  std::string _sortIndexName;
+};
 }
 }
 

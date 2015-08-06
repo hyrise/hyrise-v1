@@ -1,0 +1,7 @@
+{
+  "test": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl';
+           SELECT DISTINCT employee_company_id FROM employees;",
+
+  "reference": "CREATE TABLE ref FROM TBL FILE 'tables/employees_distinct_2.tbl';
+                SELECT * FROM ref;"
+}

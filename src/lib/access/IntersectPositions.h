@@ -8,9 +8,8 @@ namespace hyrise {
 namespace access {
 
 /// Intersects positions from two incoming pointercalculators on the same table
-class IntersectPositions: public PlanOperation {
+class IntersectPositions : public PlanOperation {
  public:
-
   /// Allowed parameters
   /// Parameters: none
   /// Query graph inputs:
@@ -23,7 +22,6 @@ class IntersectPositions: public PlanOperation {
   void executePlanOperation();
   virtual const std::string vname();
 };
-
 }
 }
 

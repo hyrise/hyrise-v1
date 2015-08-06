@@ -1,6 +1,8 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "testing/test.h"
 
+#include "helper.h"
+
 #include "io/shortcuts.h"
 
 #include "storage/AbstractTable.h"
@@ -8,19 +10,19 @@
 #include "storage/FixedLengthVector.h"
 #include "storage/OrderIndifferentDictionary.h"
 #include "storage/OrderPreservingDictionary.h"
-#include "storage/RawTable.h"
-#include "storage/SimpleStore.h"
-#include "storage/TableGenerator.h"
+#include "storage/ConcurrentUnorderedDictionary.h"
 #include "storage/storage_types.h"
+#include "storage/Store.h"
 
-namespace hyrise { namespace storage {
+namespace hyrise {
+namespace storage {
 
 class TableTests : public Test {
 
-public:
-  metadata_list intList(size_t num=2) {
+ public:
+  metadata_list intList(size_t num = 2) {
     metadata_list result;
-    for(size_t i=0; i < num; ++i)
+    for (size_t i = 0; i < num; ++i)
       result.push_back(ColumnMetadata::metadataFromString("INTEGER", "col" + std::to_string(i)));
     return result;
   }
@@ -31,7 +33,6 @@ public:
     result.push_back(ColumnMetadata::metadataFromString("STRING", "col1"));
     return result;
   }
-
 };
 
 TEST_F(TableTests, builds_correct_meta_data_for_no_dict) {
@@ -41,61 +42,33 @@ TEST_F(TableTests, builds_correct_meta_data_for_no_dict) {
 
 
 TEST_F(TableTests, does_copy_structure_copy_structure) {
-  hyrise::storage::atable_ptr_t  input = io::Loader::shortcuts::load("test/lin_xxs.tbl");
+  hyrise::storage::atable_ptr_t input = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ASSERT_EQ(3u, input->partitionCount());
 
-  hyrise::storage::atable_ptr_t  copy  = input->copy_structure();
+  hyrise::storage::atable_ptr_t copy = input->copy_structure();
   ASSERT_EQ(3u, input->partitionCount()) << "Copied table should have the same number of containers";
 }
 
 TEST_F(TableTests, copy_structure_replacement) {
-  auto input = io::Loader::shortcuts::load("test/lin_xxs.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
+  auto input =
+      io::Loader::shortcuts::load("test/lin_xxs.tbl", io::Loader::params().setReturnsMutableVerticalTable(true));
   ASSERT_EQ(3u, input->partitionCount());
   auto order_indifferent = [](DataType dt) { return makeDictionary(types::getUnorderedType(dt)); };
   auto order_preserving = [](DataType dt) { return makeDictionary(types::getOrderedType(dt)); };
 
   auto b = [](std::size_t cols) { return std::make_shared<FixedLengthVector<value_id_t>>(cols, 0); };
-  hyrise::storage::atable_ptr_t copy  = input->copy_structure(order_preserving, b); 
-  ASSERT_TRUE(std::dynamic_pointer_cast<OrderPreservingDictionary<hyrise_int_t>>(copy->dictionaryAt(0,0)) != nullptr);
+  hyrise::storage::atable_ptr_t copy = input->copy_structure(order_preserving, b);
+  ASSERT_TRUE(std::dynamic_pointer_cast<OrderPreservingDictionary<hyrise_int_t>>(copy->dictionaryAt(0, 0)) != nullptr);
   hyrise::storage::atable_ptr_t copy2 = input->copy_structure(order_indifferent, b);
-  ASSERT_TRUE(std::dynamic_pointer_cast<OrderIndifferentDictionary<hyrise_int_t>>(copy2->dictionaryAt(0,0)) != nullptr);
-}
-
-
-TEST_F(TableTests, generate_generates_layout) {
-
-  TableGenerator tg;
-  hyrise::storage::atable_ptr_t  input = tg.create_empty_table(0, 10);
-  ASSERT_EQ(10u, input->partitionCount());
-
-  std::vector<unsigned> l;
-  l.push_back(3);
-  l.push_back(7);
-
-  input = tg.create_empty_table(0, 10, l);
-  ASSERT_EQ(2u, input->partitionCount());
-
-  l.clear();
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-  l.push_back(1);
-
-  input = tg.create_empty_table(0, 10, l);
-  ASSERT_EQ(10u, input->partitionCount());
+  ASSERT_TRUE(std::dynamic_pointer_cast<ConcurrentUnorderedDictionary<hyrise_int_t>>(copy2->dictionaryAt(0, 0)) !=
+              nullptr);
 }
 
 TEST_F(TableTests, number_of_column) {
   hyrise::storage::atable_ptr_t t = io::Loader::shortcuts::load("test/lin_xxs.tbl");
   ASSERT_TRUE(t->numberOfColumn("col_0") == 0);
   ASSERT_TRUE(t->numberOfColumn("col_2") == 2);
-  //ASSERT_TRUE( t->numberOfColumn("does_not_exist") == -1 );
+  // ASSERT_TRUE( t->numberOfColumn("does_not_exist") == -1 );
 }
 
 TEST_F(TableTests, bit_compression_test) {
@@ -105,9 +78,9 @@ TEST_F(TableTests, bit_compression_test) {
   ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 1) == 0);
   ASSERT_TRUE(main->getValue<hyrise_int_t>(0, 2) == 2);
 
-  ASSERT_TRUE(main->getValue<float>(1, 0) == (float) 1.1);
-  ASSERT_TRUE(main->getValue<float>(1, 1) == (float) 3.1);
-  ASSERT_TRUE(main->getValue<float>(1, 2) == (float) 2.1);
+  ASSERT_TRUE(main->getValue<float>(1, 0) == (float)1.1);
+  ASSERT_TRUE(main->getValue<float>(1, 1) == (float)3.1);
+  ASSERT_TRUE(main->getValue<float>(1, 2) == (float)2.1);
 
   ASSERT_TRUE(main->getValue<std::string>(2, 0) == "doppelt");
   ASSERT_TRUE(main->getValue<std::string>(2, 1) == "doppelt");
@@ -116,21 +89,20 @@ TEST_F(TableTests, bit_compression_test) {
   size_t zero = 0, one = 1, two = 2;
 
   ASSERT_TRUE(main->getValueId(zero, zero).valueId == 2);
-  ASSERT_TRUE(main->getValueId(zero,  one).valueId == 0);
-  ASSERT_TRUE(main->getValueId(zero,  two).valueId == 1);
+  ASSERT_TRUE(main->getValueId(zero, one).valueId == 0);
+  ASSERT_TRUE(main->getValueId(zero, two).valueId == 1);
 
   ASSERT_TRUE(main->getValueId(one, zero).valueId == 0);
-  ASSERT_TRUE(main->getValueId(one,  one).valueId == 2);
-  ASSERT_TRUE(main->getValueId(one,  two).valueId == 1);
+  ASSERT_TRUE(main->getValueId(one, one).valueId == 2);
+  ASSERT_TRUE(main->getValueId(one, two).valueId == 1);
 
   ASSERT_TRUE(main->getValueId(two, zero).valueId == 1);
-  ASSERT_TRUE(main->getValueId(two,  one).valueId == 1);
-  ASSERT_TRUE(main->getValueId(two,  two).valueId == 0);
+  ASSERT_TRUE(main->getValueId(two, one).valueId == 1);
+  ASSERT_TRUE(main->getValueId(two, two).valueId == 0);
 }
 
 TEST_F(TableTests, test_modifiable_table) {
-  TableGenerator t;
-  hyrise::storage::atable_ptr_t a = t.create_empty_table_modifiable(10, 2);
+  auto a = empty_table(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
   ASSERT_EQ(a->getValue<hyrise_int_t>(0, 0), 100);
@@ -139,8 +111,7 @@ TEST_F(TableTests, test_modifiable_table) {
 
 
 TEST_F(TableTests, test_table_copy) {
-  TableGenerator t;
-  hyrise::storage::atable_ptr_t a = t.create_empty_table_modifiable(10, 2);
+  auto a = empty_table(10, 2);
   a->setValue<hyrise_int_t>(0, 0, 100);
   a->setValue<hyrise_int_t>(0, 1, 200);
 
@@ -149,6 +120,30 @@ TEST_F(TableTests, test_table_copy) {
   b->setValue<hyrise_int_t>(0, 1, 100);
 }
 
+TEST_F(TableTests, test_main_storage_is_fixedLengthVector) {
+  hyrise::storage::atable_ptr_t input = io::Loader::shortcuts::load("test/tables/companies.tbl");
+  const auto& store = std::dynamic_pointer_cast<Store>(input);
+  const auto& main = store->getMainTable();
+  const auto& avs = main->getAttributeVectors(0);
+  for (const auto& av : avs) {
+    ASSERT_NE(std::dynamic_pointer_cast<FixedLengthVector<value_id_t>>(av.attribute_vector), nullptr);
+  }
+}
 
-}}
+TEST_F(TableTests, test_is_column_store) {
+  std::array<std::tuple<std::string, bool>, 4> testCases = {
+      std::make_tuple("test/tables/dates.tbl", false), std::make_tuple("test/tables/partitions.tbl", false),
+      std::make_tuple("test/tables/filter.tbl", true), std::make_tuple("test/tables/employee_id.tbl", true)};
+  std::vector<std::shared_ptr<Store>> stores;
+  for (auto&& testCase : testCases) {
+    auto table = io::Loader::shortcuts::load(std::get<0>(testCase));
+    stores.push_back(std::dynamic_pointer_cast<Store>(table));
+  }
 
+  ASSERT_EQ(stores[0]->isColumnStore(), std::get<1>(testCases[0]));
+  ASSERT_EQ(stores[1]->isColumnStore(), std::get<1>(testCases[1]));
+  ASSERT_EQ(stores[2]->isColumnStore(), std::get<1>(testCases[2]));
+  ASSERT_EQ(stores[3]->isColumnStore(), std::get<1>(testCases[3]));
+}
+}
+}

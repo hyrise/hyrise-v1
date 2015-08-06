@@ -9,7 +9,7 @@ namespace hyrise {
 namespace access {
 
 class IndexScanTests : public AccessTest {
-public:
+ public:
   IndexScanTests() {}
 
   virtual void SetUp() {
@@ -32,6 +32,8 @@ TEST_F(IndexScanTests, basic_index_scan_test) {
   is.addInput(t);
   is.addField(0);
   is.setIndexName("my_index");
+  // is.setPredicateType(PredicateType::EqualsExpression);
+  // is.setValue1<hyrise_int_t>(200);
   is.setValue<hyrise_int_t>(200);
   is.execute();
 
@@ -39,6 +41,5 @@ TEST_F(IndexScanTests, basic_index_scan_test) {
 
   ASSERT_TABLE_EQUAL(result, reference);
 }
-
 }
 }

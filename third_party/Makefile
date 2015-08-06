@@ -1,6 +1,7 @@
+ifndef tp
 tp := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 
--include ../rules.mk
+-include $(tp)/../rules.mk
 
 ftprinter := $(tp)/ftprinter
 
@@ -25,3 +26,11 @@ json.includes := $(tp)/jsoncpp
 $(eval $(call library,json))
 
 optional.use_INCLUDE_DIRS := $(tp)/optional
+
+muparser := $(tp)/muparserx
+muparser.libname := muparser
+muparser.cpps := $(wildcard $(muparser)/parser/*.cpp)
+muparser.includes := $(muparser)/parser
+$(eval $(call library,muparser))
+
+endif

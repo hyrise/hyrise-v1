@@ -1,0 +1,8 @@
+{
+	"test": "CREATE TABLE students FROM TBL FILE 'students.tbl';
+	    	 DELETE FROM students WHERE grade >= 3.0;
+	    	 SELECT * FROM students;",
+
+    "reference": "CREATE TABLE reference FROM TBL FILE 'students.tbl';
+    			  SELECT * FROM reference WHERE grade < 3.0;"
+}

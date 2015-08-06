@@ -52,8 +52,6 @@ ColumnMetadata ColumnMetadata::metadataFromString(std::string typestring, std::s
     msg << "Typename not supported: " << typestring << " with name: " << name << std::endl;
     throw ColumnMetaCreationException(msg.str());
   }
-
 }
-
-} } // namespace hyrise::storage
-
+}
+}  // namespace hyrise::storage

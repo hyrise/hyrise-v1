@@ -9,7 +9,7 @@ namespace hyrise {
 namespace access {
 
 class LayoutSingleTable : public PlanOperation {
-public:
+ public:
   enum layouter_type {
     BaseLayouter,
     CandidateLayouter,
@@ -26,10 +26,10 @@ public:
   virtual ~LayoutSingleTable();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void addFieldName(const std::string &n);
-  void addQuery(const BaseQuery &q);
+  void addFieldName(const std::string& n);
+  void addQuery(const BaseQuery& q);
   /// Use the candidate layouter instead of calculating cost for all
   /// possible layouts
   void setLayouter(const layouter_type c);
@@ -39,12 +39,12 @@ public:
   /// result table.
   void setMaxResults(const size_t n);
 
-private:
+ private:
   typedef std::vector<std::string> names_list_t;
   typedef std::vector<unsigned> size_list_t;
   typedef std::vector<BaseQuery> query_list_t;
 
-  layouter::Query *parseQuery(const BaseQuery &q);
+  layouter::Query* parseQuery(const BaseQuery& q);
 
   names_list_t _names;
   size_list_t _atts;
@@ -53,7 +53,6 @@ private:
   layouter_type _layouter;
   size_t _maxResults;
 };
-
 }
 }
 

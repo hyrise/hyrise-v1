@@ -3,53 +3,57 @@
 #define SRC_LIB_ACCESS_INDEX_SCAN
 
 #include "access/system/PlanOperation.h"
+#include "access/expressions/expression_types.h"
 
 namespace hyrise {
 namespace access {
 
-class AbstractIndexValue {
-};
+class AbstractIndexValue {};
 
-template<typename T>
+template <typename T>
 class IndexValue : public AbstractIndexValue {
-public:
+ public:
   typedef T value_type;
   value_type value;
 };
 
+class IndexAwareTableScan;
+
 /// Scan an existing index for the result. Currently only EQ predicates
 /// allowed for the index.
 class IndexScan : public PlanOperation {
-public:
+ public:
+  IndexScan();
   virtual ~IndexScan();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
-  void setIndexName(const std::string &name);
-  template<typename T>
+  void setIndexName(const std::string& name);
+  template <typename T>
   void setValue(const T value) {
     auto val = new IndexValue<T>();
     val->value = value;
     _value = static_cast<AbstractIndexValue*>(val);
   }
 
-private:
+  friend class IndexAwareTableScan;
+
+ protected:
   std::string _indexName;
-  AbstractIndexValue *_value;
+  AbstractIndexValue* _value;
 };
 
 
 class MergeIndexScan : public PlanOperation {
-public:
+ public:
   virtual ~MergeIndexScan();
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
   const std::string vname();
 };
-
 }
 }
 
-#endif // SRC_LIB_ACCESS_INDEX_SCAN
+#endif  // SRC_LIB_ACCESS_INDEX_SCAN

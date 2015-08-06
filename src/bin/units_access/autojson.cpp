@@ -11,7 +11,10 @@
 #include "access/system/PlanOperation.h"
 #include "io/TransactionManager.h"
 #include "io/StorageManager.h"
+#include "helper/HttpHelper.h"
 #include "testing/TableEqualityTest.h"
+
+#include <helper/Settings.h>
 
 namespace hyrise {
 namespace access {
@@ -25,42 +28,39 @@ using ::testing::ValuesIn;
 
 class AutoJsonTest : public TestWithParam<std::string> {
  public:
-  AutoJsonTest() {
-    sm = io::StorageManager::getInstance();
-  }
-  virtual ~AutoJsonTest() { }
+  AutoJsonTest() { sm = io::StorageManager::getInstance(); }
+  virtual ~AutoJsonTest() {}
 
   virtual void SetUp() {
     json_name = GetParam();
-    sm->removeAll(); // Make sure old tables don't bleed into these tests
+    sm->removeAll();  // Make sure old tables don't bleed into these tests
     tx::TransactionManager::getInstance().reset();
   }
 
-  virtual void TearDown() {
-    json_name = "";
-  }
+  virtual void TearDown() { json_name = ""; }
 
  protected:
   std::string json_name;
-  io::StorageManager *sm;
+  io::StorageManager* sm;
 };
 
 TEST_P(AutoJsonTest, Query) {
   RecordProperty("JSONFile", json_name.c_str());
 
-  std::string q = loadFromFile("test/autojson/" + json_name);
+  std::string q = urlencode(loadFromFile(json_name));
 
   auto has_xfail = json_name.find("xfail") != std::string::npos;
 
   hyrise::storage::c_atable_ptr_t out;
   try {
-    out = executeAndWait(q);
-  } catch (const std::runtime_error& e) {
+    out = executeJsonAndWait(q);
+  }
+  catch (const std::runtime_error& e) {
     if (!has_xfail) {
-      throw e; 
+      throw e;
     }
   }
-  
+
   if (sm->exists("reference")) {
     ASSERT_TRUE((bool)out);
     auto ref = io::StorageManager::getInstance()->getTable("reference");
@@ -70,38 +70,33 @@ TEST_P(AutoJsonTest, Query) {
 }
 
 struct pathname_of {
-  std::string operator()(const directory_entry &p) const {
-    return p.path().filename().c_str();
-  }
+  std::string operator()(const directory_entry& p) const { return p.path().c_str(); }
 };
 
 std::vector<std::string> GetParameterStrings() {
   std::vector<std::string> files;
   std::back_insert_iterator<std::vector<std::string> > back_it(files);
-  std::transform(directory_iterator("test/autojson/"),
-            directory_iterator(),
-            back_it,
-            pathname_of());
+  std::transform(directory_iterator("test/autojson/"), directory_iterator(), back_it, pathname_of());
+
+#ifdef WITH_V8
+  Settings::getInstance()->setScriptPath("test/script");
+  std::transform(directory_iterator("test/autojson/v8Tests/"), directory_iterator(), back_it, pathname_of());
+#endif
 
   std::vector<std::string> result;
-  for (const auto& filename: files) {
-    if ((filename.substr(filename.size() - 5).compare(".json") == 0)
-        && (!(filename.substr(0, 3).compare("DIS")==0)))
+  for (const auto& filename : files) {
+    if ((filename.substr(filename.size() - 5).compare(".json") == 0) &&
+        (!(filename.substr(filename.find_last_of("/") + 1, 3).compare("DIS") == 0)))
       result.push_back(filename);
   }
 
   return result;
 }
 
-INSTANTIATE_TEST_CASE_P(
-    AutoJson,
-    AutoJsonTest,
-    ValuesIn(GetParameterStrings())
-                        );
+INSTANTIATE_TEST_CASE_P(AutoJson, AutoJsonTest, ValuesIn(GetParameterStrings()));
 
 #else
 TEST(DummyTest, ValueParameterizedTestsAreNotSupportedOnThisPlatform) {}
 #endif
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

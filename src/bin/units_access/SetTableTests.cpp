@@ -21,6 +21,5 @@ TEST_F(SetTableTests, basic_SetTable_test) {
 
   ASSERT_TABLE_EQUAL(sm->getTable("myTable"), t);
 }
-
 }
 }

@@ -46,31 +46,29 @@ TEST_F(LoadTests, simple_unloadall_op) {
 
 TEST_F(LoadTests, simple_query_with_loadops) {
   std::string q = loadFromFile("test/json/simple_query_with_loadop.json");
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
   ASSERT_TRUE((bool)out);
 }
 
 TEST_F(LoadTests, simple_query_with_two_loadops) {
   std::string q = loadFromFile("test/json/two_loadop_one_unload.json");
-  const auto&  outone = executeAndWait(q);
-  if(outone) {
+  const auto& outone = executeJsonAndWait(q);
+  if (outone) {
     q = loadFromFile("test/json/unload_io.json");
-    const auto& out = executeAndWait(q);
+    const auto& out = executeJsonAndWait(q);
     ASSERT_TRUE(!out);
   }
 }
 
 TEST_F(LoadTests, simple_query_with_load_with_header) {
   std::string q = loadFromFile("test/json/simple_query_load_with_header.json");
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
   ASSERT_TRUE((bool)out);
 }
 
 TEST_F(LoadTests, load_exception) {
   std::string q = loadFromFile("test/json/load_exception.json");
-  ASSERT_THROW( {
-      executeAndWait(q);
-    }, std::runtime_error);
+  ASSERT_THROW({ executeJsonAndWait(q); }, std::runtime_error);
 }
 
 /*
@@ -78,7 +76,8 @@ TEST_F(LoadTests, load_exception) {
   {
 
   StorageManager* sm = StorageManager::getInstance();
-  std::string table_description = "Mobile | ID | Name | Mail | Company | Phone | Org\nINTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER | INTEGER\n0_R | 1_R | 1_R | 1_R | 1_R | 1_R | 1_R";
+  std::string table_description = "Mobile | ID | Name | Mail | Company | Phone | Org\nINTEGER | INTEGER | INTEGER |
+  INTEGER | INTEGER | INTEGER | INTEGER\n0_R | 1_R | 1_R | 1_R | 1_R | 1_R | 1_R";
   sm->loadTableFileWithStringHeader("mytab", "tables/10_col_only_data.tbl" , table_description, true);
 
   hyrise::storage::atable_ptr_t  t = sm->getTable("mytab");
@@ -91,12 +90,10 @@ TEST_F(LoadTests, load_exception) {
 
 TEST_F(LoadTests, sql_table_load_op) {
   std::string q = loadFromFile("test/json/mysql_table_load.json");
-  const auto& out = executeAndWait(q);
+  const auto& out = executeJsonAndWait(q);
   ASSERT_TRUE((bool)out);
 }
 
 #endif
-
 }
 }
-

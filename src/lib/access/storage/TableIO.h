@@ -11,26 +11,23 @@ class DumpTable : public PlanOperation {
 
   std::string _name;
 
-public:
+ public:
   virtual ~DumpTable() = default;
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
-
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 };
 
 class LoadDumpedTable : public PlanOperation {
 
   std::string _name;
 
-public:
+ public:
   virtual ~LoadDumpedTable() = default;
 
   void executePlanOperation();
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
-
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 };
-
 }
 }
 

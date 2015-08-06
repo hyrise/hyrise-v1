@@ -1,0 +1,43 @@
+/* equivalent to autojson/like_expression.json */
+{
+    "test": "CREATE TABLE employees FROM TBL FILE 'tables/employees.tbl';
+             SELECT * FROM employees WHERE employee_name LIKE '.teve .*' OR employee_name LIKE 'Jeffre. .\\. .*ley';",
+        
+    "reference": {
+        "operators": {
+            "load": {
+                "type": "LoadFile",
+                "filename": "tables/employees.tbl"
+            },
+            "like": {
+                "type": "SimpleTableScan",
+                "positions": true,
+                "predicates": [
+                    {
+                        "type": "OR"
+                    },
+                    {
+                        "type": "LIKE",
+                        "in": 0,
+                        "f": "employee_name",
+                        "vtype": 2,
+                        "value": ".teve .*"
+                    },
+                    {
+                        "type": "LIKE",
+                        "in": 0,
+                        "f": "employee_name",
+                        "vtype": 2,
+                        "value": "Jeffre. .\\. .*ley"
+                    }
+                ]
+            }
+        },
+        "edges": [
+            [
+                "load",
+                "like"
+            ]
+        ]
+    }
+}

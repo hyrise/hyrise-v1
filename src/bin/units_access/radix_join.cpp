@@ -4,10 +4,12 @@
 #include "access/radixjoin/Histogram.h"
 #include "access/radixjoin/RadixCluster.h"
 #include "helper.h"
+#include "helper/types.h"
 #include "io/shortcuts.h"
 #include "access/radixjoin/NestedLoopEquiJoin.h"
 #include "testing/TableEqualityTest.h"
-#include <storage/TableBuilder.h>
+#include "storage/Table.h"
+#include "storage/ColumnMetadata.h"
 #include "access/RadixJoin.h"
 #include "access/storage/TableLoad.h"
 #include "access/Barrier.h"
@@ -16,9 +18,17 @@
 namespace hyrise {
 namespace access {
 
-using storage::TableBuilder;
+class RadixJoinTest : public AccessTest {
 
-class RadixJoinTest : public AccessTest {};
+ public:
+  std::shared_ptr<storage::Table> createOutputTable(const size_t size) {
+    std::vector<storage::ColumnMetadata> meta{
+        storage::ColumnMetadata::metadataFromString(types::integer_name, "count")};
+    auto result = std::make_shared<storage::Table>(&meta, nullptr, size, true, false);
+    result->resize(size);
+    return result;
+  }
+};
 
 TEST_F(RadixJoinTest, histogram_parallel_4x) {
 
@@ -27,36 +37,36 @@ TEST_F(RadixJoinTest, histogram_parallel_4x) {
   Histogram h1;
   h1.addInput(table);
   h1.addField(0);
-  h1.setBits(2);    
+  h1.setBits(2);
   h1.setPart(0);
   h1.setCount(4);
 
   Histogram h2;
   h2.addInput(table);
   h2.addField(0);
-  h2.setBits(2);    
+  h2.setBits(2);
   h2.setPart(1);
   h2.setCount(4);
 
   Histogram h3;
   h3.addInput(table);
   h3.addField(0);
-  h3.setBits(2);    
+  h3.setBits(2);
   h3.setPart(2);
   h3.setCount(4);
 
   Histogram h4;
   h4.addInput(table);
   h4.addField(0);
-  h4.setBits(2);    
+  h4.setBits(2);
   h4.setPart(3);
   h4.setCount(4);
 
   // First Histogram, now Prefix
-  h1.execute();  
-  h2.execute();  
-  h3.execute();  
-  h4.execute();  
+  h1.execute();
+  h2.execute();
+  h3.execute();
+  h4.execute();
 
   PrefixSum p1;
   p1.addInput(h1.getResultTable());
@@ -97,47 +107,46 @@ TEST_F(RadixJoinTest, histogram_parallel_4x) {
 
   // Result Prefix SUm
   // Result Histogram
-  EXPECT_EQ(0u, p1.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, p1.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(7u, p1.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(8u, p1.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(0u, p1.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, p1.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(7u, p1.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(8u, p1.getResultTable()->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(1u, p2.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(4u, p2.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(7u, p2.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(8u, p2.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(1u, p2.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(4u, p2.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(7u, p2.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(8u, p2.getResultTable()->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(3u, p3.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(4u, p3.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(7u, p3.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(8u, p3.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(3u, p3.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(4u, p3.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(7u, p3.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(8u, p3.getResultTable()->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(3u, p4.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(5u, p4.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(8u, p4.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(8u, p4.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(3u, p4.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(5u, p4.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(8u, p4.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(8u, p4.getResultTable()->getValueId(0, 3).valueId);
 
   // Result Histogram
-  EXPECT_EQ(1u, h1.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(1u, h1.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, h1.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, h1.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(1u, h1.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(1u, h1.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, h1.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, h1.getResultTable()->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(2u, h2.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(0u, h2.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, h2.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, h2.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(2u, h2.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(0u, h2.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, h2.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, h2.getResultTable()->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(0u, h3.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(1u, h3.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(1u, h3.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, h3.getResultTable()->getValueId(0,3).valueId);
+  EXPECT_EQ(0u, h3.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(1u, h3.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(1u, h3.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, h3.getResultTable()->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(0u, h4.getResultTable()->getValueId(0,0).valueId);
-  EXPECT_EQ(2u, h4.getResultTable()->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, h4.getResultTable()->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, h4.getResultTable()->getValueId(0,3).valueId);
-
+  EXPECT_EQ(0u, h4.getResultTable()->getValueId(0, 0).valueId);
+  EXPECT_EQ(2u, h4.getResultTable()->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, h4.getResultTable()->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, h4.getResultTable()->getValueId(0, 3).valueId);
 }
 
 
@@ -152,26 +161,26 @@ TEST_F(RadixJoinTest, check_prefixsum) {
 
   auto result = ps.getResultTable();
 
-  for(size_t i = 0; i < t1->size(); i++)
-    ASSERT_TRUE(result->getValueId(0, i).valueId == reference->getValue<unsigned int>(0, i)) << result->getValueId(0, i).valueId << " != " << reference->getValue<unsigned int>(0, i) << " at " << i;
+  for (size_t i = 0; i < t1->size(); i++)
+    ASSERT_TRUE(result->getValueId(0, i).valueId == reference->getValue<unsigned int>(0, i))
+        << result->getValueId(0, i).valueId << " != " << reference->getValue<unsigned int>(0, i) << " at " << i;
 }
 
+
+
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2); t2->resize(2); t3->resize(2);
-  t1->setValueId(0,0, {10,0});
-  t1->setValueId(0,1, {20,0});
+  t1->setValueId(0, 0, {10, 0});
+  t1->setValueId(0, 1, {20, 0});
 
-  t2->setValueId(0,0, {3,0});
-  t2->setValueId(0,1, {7,0});
+  t2->setValueId(0, 0, {3, 0});
+  t2->setValueId(0, 1, {7, 0});
 
-  t3->setValueId(0,0, {8,0});
-  t3->setValueId(0,1, {3,0});
+  t3->setValueId(0, 0, {8, 0});
+  t3->setValueId(0, 1, {3, 0});
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -182,27 +191,23 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p3) {
 
   auto result = ps.getResultTable();
 
-  EXPECT_EQ(13u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(48u, result->getValueId(0,1).valueId);
-  
+  EXPECT_EQ(13u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(48u, result->getValueId(0, 1).valueId);
 }
 
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2); t2->resize(2); t3->resize(2);
-  t1->setValueId(0,0, {10,0});
-  t1->setValueId(0,1, {20,0});
+  t1->setValueId(0, 0, {10, 0});
+  t1->setValueId(0, 1, {20, 0});
 
-  t2->setValueId(0,0, {3,0});
-  t2->setValueId(0,1, {7,0});
+  t2->setValueId(0, 0, {3, 0});
+  t2->setValueId(0, 1, {7, 0});
 
-  t3->setValueId(0,0, {8,0});
-  t3->setValueId(0,1, {3,0});
+  t3->setValueId(0, 0, {8, 0});
+  t3->setValueId(0, 1, {3, 0});
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -213,26 +218,23 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p2) {
 
   auto result = ps.getResultTable();
 
-  EXPECT_EQ(10u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(41u, result->getValueId(0,1).valueId);  
+  EXPECT_EQ(10u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(41u, result->getValueId(0, 1).valueId);
 }
 
 TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2); t2->resize(2); t3->resize(2);
-  t1->setValueId(0,0, {10,0});
-  t1->setValueId(0,1, {20,0});
+  t1->setValueId(0, 0, {10, 0});
+  t1->setValueId(0, 1, {20, 0});
 
-  t2->setValueId(0,0, {3,0});
-  t2->setValueId(0,1, {7,0});
+  t2->setValueId(0, 0, {3, 0});
+  t2->setValueId(0, 1, {7, 0});
 
-  t3->setValueId(0,0, {8,0});
-  t3->setValueId(0,1, {3,0});
+  t3->setValueId(0, 0, {8, 0});
+  t3->setValueId(0, 1, {3, 0});
 
   PrefixSum ps;
   ps.addInput(t1);
@@ -243,27 +245,23 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_p1) {
 
   auto result = ps.getResultTable();
 
-  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(21u, result->getValueId(0,1).valueId);
-  
+  EXPECT_EQ(0u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(21u, result->getValueId(0, 1).valueId);
 }
 
 TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
-  TableBuilder::param_list list;
-  list.append().set_type("INTEGER").set_name("count");
-  auto t1 = TableBuilder::build(list, false);
-  auto t2 = TableBuilder::build(list, false);
-  auto t3 = TableBuilder::build(list, false);
+  auto t1 = createOutputTable(2);
+  auto t2 = createOutputTable(2);
+  auto t3 = createOutputTable(2);
 
-  t1->resize(2); t2->resize(2); t3->resize(2);
-  t1->setValueId(0,0, {0,0});
-  t1->setValueId(0,1, {10,0});
+  t1->setValueId(0, 0, {0, 0});
+  t1->setValueId(0, 1, {10, 0});
 
-  t2->setValueId(0,0, {3,0});
-  t2->setValueId(0,1, {11,0});
+  t2->setValueId(0, 0, {3, 0});
+  t2->setValueId(0, 1, {11, 0});
 
-  t3->setValueId(0,0, {8,0});
-  t3->setValueId(0,1, {18,0});
+  t3->setValueId(0, 0, {8, 0});
+  t3->setValueId(0, 1, {18, 0});
 
   MergePrefixSum ps;
   ps.addInput(t1);
@@ -273,9 +271,8 @@ TEST_F(RadixJoinTest, check_prefixsum_parallel_merge) {
 
   auto result = ps.getResultTable();
 
-  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(10u, result->getValueId(0,1).valueId);
-  
+  EXPECT_EQ(0u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(10u, result->getValueId(0, 1).valueId);
 }
 
 TEST_F(RadixJoinTest, hist_prefix_radix_cluster) {
@@ -288,20 +285,20 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster) {
   hst.execute();
 
   auto result = hst.getResultTable();
-  EXPECT_EQ(3u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(4u, result->getValueId(0,1).valueId);
-  EXPECT_EQ(1u, result->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, result->getValueId(0,3).valueId);
+  EXPECT_EQ(3u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(4u, result->getValueId(0, 1).valueId);
+  EXPECT_EQ(1u, result->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 3).valueId);
 
   PrefixSum ps;
   ps.addInput(hst.getResultTable());
   ps.execute();
 
   result = ps.getResultTable();
-  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, result->getValueId(0,1).valueId);
-  EXPECT_EQ(7u, result->getValueId(0,2).valueId);
-  EXPECT_EQ(8u, result->getValueId(0,3).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, result->getValueId(0, 1).valueId);
+  EXPECT_EQ(7u, result->getValueId(0, 2).valueId);
+  EXPECT_EQ(8u, result->getValueId(0, 3).valueId);
 
   CreateRadixTable c;
   c.addInput(table);
@@ -317,17 +314,16 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster) {
   rx.execute();
 
   result = rx.getResultTable();
-  
+
   EXPECT_EQ(table->size(), result->size());
-  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(0u, result->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, result->getValueId(0,2).valueId);
-  EXPECT_EQ(1u, result->getValueId(0,3).valueId);
-  EXPECT_EQ(1u, result->getValueId(0,4).valueId);
-  EXPECT_EQ(1u, result->getValueId(0,5).valueId);
-  EXPECT_EQ(1u, result->getValueId(0,6).valueId);
-  EXPECT_EQ(2u, result->getValueId(0,7).valueId);
-  
+  EXPECT_EQ(0u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 2).valueId);
+  EXPECT_EQ(1u, result->getValueId(0, 3).valueId);
+  EXPECT_EQ(1u, result->getValueId(0, 4).valueId);
+  EXPECT_EQ(1u, result->getValueId(0, 5).valueId);
+  EXPECT_EQ(1u, result->getValueId(0, 6).valueId);
+  EXPECT_EQ(2u, result->getValueId(0, 7).valueId);
 }
 
 TEST_F(RadixJoinTest, hist_prefix_radix_cluster_string) {
@@ -340,20 +336,20 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster_string) {
   hst.execute();
 
   auto result = hst.getResultTable();
-  EXPECT_EQ(3u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(0u, result->getValueId(0,1).valueId);
-  EXPECT_EQ(5u, result->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, result->getValueId(0,3).valueId);
+  EXPECT_EQ(3u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 1).valueId);
+  EXPECT_EQ(5u, result->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 3).valueId);
 
   PrefixSum ps;
   ps.addInput(hst.getResultTable());
   ps.execute();
 
   result = ps.getResultTable();
-  EXPECT_EQ(0u, result->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, result->getValueId(0,1).valueId);
-  EXPECT_EQ(3u, result->getValueId(0,2).valueId);
-  EXPECT_EQ(8u, result->getValueId(0,3).valueId);
+  EXPECT_EQ(0u, result->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, result->getValueId(0, 1).valueId);
+  EXPECT_EQ(3u, result->getValueId(0, 2).valueId);
+  EXPECT_EQ(8u, result->getValueId(0, 3).valueId);
 
   CreateRadixTable c;
   c.addInput(table);
@@ -369,17 +365,16 @@ TEST_F(RadixJoinTest, hist_prefix_radix_cluster_string) {
   rx.execute();
 
   result = rx.getResultTable();
-  
+
   EXPECT_EQ(table->size(), result->size());
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0,0).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0,1).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0,2).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,3).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,4).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,5).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("C"), result->getValueId(0,6).valueId);
-  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0,7).valueId);
-  
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0, 0).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0, 1).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("B"), result->getValueId(0, 2).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0, 3).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0, 4).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0, 5).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("C"), result->getValueId(0, 6).valueId);
+  EXPECT_EQ((value_id_t)std::hash<std::string>()("A"), result->getValueId(0, 7).valueId);
 }
 
 TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
@@ -394,11 +389,11 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
   auto histo_result = hst.getResultTable();
 
   EXPECT_EQ(4u, histo_result->size());
-  EXPECT_EQ(5u, histo_result->getValueId(0,0).valueId);
-  EXPECT_EQ(5u, histo_result->getValueId(0,1).valueId);
-  EXPECT_EQ(1u, histo_result->getValueId(0,2).valueId);
-  EXPECT_EQ(1u, histo_result->getValueId(0,3).valueId);
-  
+  EXPECT_EQ(5u, histo_result->getValueId(0, 0).valueId);
+  EXPECT_EQ(5u, histo_result->getValueId(0, 1).valueId);
+  EXPECT_EQ(1u, histo_result->getValueId(0, 2).valueId);
+  EXPECT_EQ(1u, histo_result->getValueId(0, 3).valueId);
+
   // Creates the prefix sums with the offsets for the clustering
   PrefixSum ps;
   ps.addInput(histo_result);
@@ -406,10 +401,10 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
   auto prefix_result = ps.getResultTable();
 
   EXPECT_EQ(4u, prefix_result->size());
-  EXPECT_EQ(0u, prefix_result->getValueId(0,0).valueId);
-  EXPECT_EQ(5u, prefix_result->getValueId(0,1).valueId);
-  EXPECT_EQ(10u, prefix_result->getValueId(0,2).valueId);
-  EXPECT_EQ(11u, prefix_result->getValueId(0,3).valueId);
+  EXPECT_EQ(0u, prefix_result->getValueId(0, 0).valueId);
+  EXPECT_EQ(5u, prefix_result->getValueId(0, 1).valueId);
+  EXPECT_EQ(10u, prefix_result->getValueId(0, 2).valueId);
+  EXPECT_EQ(11u, prefix_result->getValueId(0, 3).valueId);
 
   CreateRadixTable c;
   c.addInput(table);
@@ -429,57 +424,57 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
   rx.execute();
   auto pass1 = rx.getResultTable();
 
-  EXPECT_EQ(0u, pass1->getValueId(0,0).valueId);
-  EXPECT_EQ(4u, pass1->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, pass1->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, pass1->getValueId(0,3).valueId);
-  EXPECT_EQ(4u, pass1->getValueId(0,4).valueId);
-  EXPECT_EQ(1u, pass1->getValueId(0,5).valueId);
-  EXPECT_EQ(1u, pass1->getValueId(0,6).valueId);
-  EXPECT_EQ(1u, pass1->getValueId(0,7).valueId);
-  EXPECT_EQ(25u, pass1->getValueId(0,8).valueId);
-  EXPECT_EQ(9u, pass1->getValueId(0,9).valueId);
-  EXPECT_EQ(2u, pass1->getValueId(0,10).valueId);
-  EXPECT_EQ(3u, pass1->getValueId(0,11).valueId);
+  EXPECT_EQ(0u, pass1->getValueId(0, 0).valueId);
+  EXPECT_EQ(4u, pass1->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, pass1->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, pass1->getValueId(0, 3).valueId);
+  EXPECT_EQ(4u, pass1->getValueId(0, 4).valueId);
+  EXPECT_EQ(1u, pass1->getValueId(0, 5).valueId);
+  EXPECT_EQ(1u, pass1->getValueId(0, 6).valueId);
+  EXPECT_EQ(1u, pass1->getValueId(0, 7).valueId);
+  EXPECT_EQ(25u, pass1->getValueId(0, 8).valueId);
+  EXPECT_EQ(9u, pass1->getValueId(0, 9).valueId);
+  EXPECT_EQ(2u, pass1->getValueId(0, 10).valueId);
+  EXPECT_EQ(3u, pass1->getValueId(0, 11).valueId);
 
   // We know the number of buckets from the previous operation
   Histogram2ndPass hst2;
-  hst2.setBits(2,0);
-  hst2.setBits2(1,2);
+  hst2.setBits(2, 0);
+  hst2.setBits2(1, 2);
   hst2.addField(0);
   hst2.addInput(pass1);
   hst2.execute();
   auto pass2 = hst2.getResultTable();
 
   EXPECT_EQ(prefix_result->size() * 2, pass2->size());
-  EXPECT_EQ(3u, pass2->getValueId(0,0).valueId);
-  EXPECT_EQ(2u, pass2->getValueId(0,1).valueId);
+  EXPECT_EQ(3u, pass2->getValueId(0, 0).valueId);
+  EXPECT_EQ(2u, pass2->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(5u, pass2->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, pass2->getValueId(0,3).valueId);
+  EXPECT_EQ(5u, pass2->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, pass2->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(1u, pass2->getValueId(0,4).valueId);
-  EXPECT_EQ(0u, pass2->getValueId(0,5).valueId);
+  EXPECT_EQ(1u, pass2->getValueId(0, 4).valueId);
+  EXPECT_EQ(0u, pass2->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(1u, pass2->getValueId(0,6).valueId);
-  EXPECT_EQ(0u, pass2->getValueId(0,7).valueId);
+  EXPECT_EQ(1u, pass2->getValueId(0, 6).valueId);
+  EXPECT_EQ(0u, pass2->getValueId(0, 7).valueId);
 
   PrefixSum ps2;
   ps2.addInput(pass2);
   ps2.execute();
   auto prefix2 = ps2.getResultTable();
   EXPECT_EQ(prefix_result->size() * 2, prefix2->size());
-  EXPECT_EQ(0u, prefix2->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, prefix2->getValueId(0,1).valueId);
+  EXPECT_EQ(0u, prefix2->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, prefix2->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(5u, prefix2->getValueId(0,2).valueId);
-  EXPECT_EQ(10u, prefix2->getValueId(0,3).valueId);
+  EXPECT_EQ(5u, prefix2->getValueId(0, 2).valueId);
+  EXPECT_EQ(10u, prefix2->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(10u, prefix2->getValueId(0,4).valueId);
-  EXPECT_EQ(11u, prefix2->getValueId(0,5).valueId);
+  EXPECT_EQ(10u, prefix2->getValueId(0, 4).valueId);
+  EXPECT_EQ(11u, prefix2->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(11u, prefix2->getValueId(0,6).valueId);
-  EXPECT_EQ(12u, prefix2->getValueId(0,7).valueId);
+  EXPECT_EQ(11u, prefix2->getValueId(0, 6).valueId);
+  EXPECT_EQ(12u, prefix2->getValueId(0, 7).valueId);
 
   RadixCluster2ndPass rx2;
   rx2.setBits1(2, 0);
@@ -490,18 +485,18 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster) {
   rx2.execute();
   auto pass_rx2 = rx2.getResultTable();
 
-  EXPECT_EQ(0u, pass_rx2->getValueId(0,0).valueId);
-  EXPECT_EQ(0u, pass_rx2->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, pass_rx2->getValueId(0,2).valueId);
-  EXPECT_EQ(4u, pass_rx2->getValueId(0,3).valueId);
-  EXPECT_EQ(4u, pass_rx2->getValueId(0,4).valueId);
-  EXPECT_EQ(1u, pass_rx2->getValueId(0,5).valueId);
-  EXPECT_EQ(1u, pass_rx2->getValueId(0,6).valueId);
-  EXPECT_EQ(1u, pass_rx2->getValueId(0,7).valueId);
-  EXPECT_EQ(25u,pass_rx2->getValueId(0,8).valueId);
-  EXPECT_EQ(9u, pass_rx2->getValueId(0,9).valueId);
-  EXPECT_EQ(2u, pass_rx2->getValueId(0,10).valueId);
-  EXPECT_EQ(3u, pass_rx2->getValueId(0,11).valueId);
+  EXPECT_EQ(0u, pass_rx2->getValueId(0, 0).valueId);
+  EXPECT_EQ(0u, pass_rx2->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, pass_rx2->getValueId(0, 2).valueId);
+  EXPECT_EQ(4u, pass_rx2->getValueId(0, 3).valueId);
+  EXPECT_EQ(4u, pass_rx2->getValueId(0, 4).valueId);
+  EXPECT_EQ(1u, pass_rx2->getValueId(0, 5).valueId);
+  EXPECT_EQ(1u, pass_rx2->getValueId(0, 6).valueId);
+  EXPECT_EQ(1u, pass_rx2->getValueId(0, 7).valueId);
+  EXPECT_EQ(25u, pass_rx2->getValueId(0, 8).valueId);
+  EXPECT_EQ(9u, pass_rx2->getValueId(0, 9).valueId);
+  EXPECT_EQ(2u, pass_rx2->getValueId(0, 10).valueId);
+  EXPECT_EQ(3u, pass_rx2->getValueId(0, 11).valueId);
 }
 
 TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
@@ -518,10 +513,10 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto histo_result = hst.getResultTable();
 
   EXPECT_EQ(4u, histo_result->size());
-  EXPECT_EQ(4u, histo_result->getValueId(0,0).valueId);
-  EXPECT_EQ(2u, histo_result->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, histo_result->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, histo_result->getValueId(0,3).valueId);
+  EXPECT_EQ(4u, histo_result->getValueId(0, 0).valueId);
+  EXPECT_EQ(2u, histo_result->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, histo_result->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, histo_result->getValueId(0, 3).valueId);
 
   Histogram hst2;
   hst2.setBits(2);
@@ -533,10 +528,10 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto histo_result2 = hst2.getResultTable();
 
   EXPECT_EQ(4u, histo_result2->size());
-  EXPECT_EQ(1u, histo_result2->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, histo_result2->getValueId(0,1).valueId);
-  EXPECT_EQ(1u, histo_result2->getValueId(0,2).valueId);
-  EXPECT_EQ(1u, histo_result2->getValueId(0,3).valueId);
+  EXPECT_EQ(1u, histo_result2->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, histo_result2->getValueId(0, 1).valueId);
+  EXPECT_EQ(1u, histo_result2->getValueId(0, 2).valueId);
+  EXPECT_EQ(1u, histo_result2->getValueId(0, 3).valueId);
 
   // Creates the prefix sums with the offsets for the clustering
   PrefixSum ps;
@@ -548,10 +543,10 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto prefix_result = ps.getResultTable();
 
   EXPECT_EQ(4u, prefix_result->size());
-  EXPECT_EQ(0u, prefix_result->getValueId(0,0).valueId);
-  EXPECT_EQ(5u, prefix_result->getValueId(0,1).valueId);
-  EXPECT_EQ(10u, prefix_result->getValueId(0,2).valueId);
-  EXPECT_EQ(11u, prefix_result->getValueId(0,3).valueId);
+  EXPECT_EQ(0u, prefix_result->getValueId(0, 0).valueId);
+  EXPECT_EQ(5u, prefix_result->getValueId(0, 1).valueId);
+  EXPECT_EQ(10u, prefix_result->getValueId(0, 2).valueId);
+  EXPECT_EQ(11u, prefix_result->getValueId(0, 3).valueId);
 
   PrefixSum ps2;
   ps2.addInput(histo_result);
@@ -562,10 +557,10 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto prefix_result2 = ps2.getResultTable();
 
   EXPECT_EQ(4u, prefix_result2->size());
-  EXPECT_EQ(4u, prefix_result2->getValueId(0,0).valueId);
-  EXPECT_EQ(7u, prefix_result2->getValueId(0,1).valueId);
-  EXPECT_EQ(10u, prefix_result2->getValueId(0,2).valueId);
-  EXPECT_EQ(11u, prefix_result2->getValueId(0,3).valueId);
+  EXPECT_EQ(4u, prefix_result2->getValueId(0, 0).valueId);
+  EXPECT_EQ(7u, prefix_result2->getValueId(0, 1).valueId);
+  EXPECT_EQ(10u, prefix_result2->getValueId(0, 2).valueId);
+  EXPECT_EQ(11u, prefix_result2->getValueId(0, 3).valueId);
 
   CreateRadixTable c;
   c.addInput(table);
@@ -600,24 +595,24 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
 
   EXPECT_EQ(pass1_1.get(), pass1_2.get());
 
-  EXPECT_EQ(0u, pass1_1->getValueId(0,0).valueId);
-  EXPECT_EQ(4u, pass1_1->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, pass1_1->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, pass1_1->getValueId(0,3).valueId);
-  EXPECT_EQ(4u, pass1_1->getValueId(0,4).valueId);
-  EXPECT_EQ(1u, pass1_1->getValueId(0,5).valueId);
+  EXPECT_EQ(0u, pass1_1->getValueId(0, 0).valueId);
+  EXPECT_EQ(4u, pass1_1->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, pass1_1->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, pass1_1->getValueId(0, 3).valueId);
+  EXPECT_EQ(4u, pass1_1->getValueId(0, 4).valueId);
+  EXPECT_EQ(1u, pass1_1->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(1u, pass1_1->getValueId(0,6).valueId);
-  EXPECT_EQ(1u, pass1_1->getValueId(0,7).valueId);
-  EXPECT_EQ(25u, pass1_1->getValueId(0,8).valueId);
-  EXPECT_EQ(9u, pass1_1->getValueId(0,9).valueId);
-  EXPECT_EQ(2u, pass1_1->getValueId(0,10).valueId);
-  EXPECT_EQ(3u, pass1_1->getValueId(0,11).valueId);
+  EXPECT_EQ(1u, pass1_1->getValueId(0, 6).valueId);
+  EXPECT_EQ(1u, pass1_1->getValueId(0, 7).valueId);
+  EXPECT_EQ(25u, pass1_1->getValueId(0, 8).valueId);
+  EXPECT_EQ(9u, pass1_1->getValueId(0, 9).valueId);
+  EXPECT_EQ(2u, pass1_1->getValueId(0, 10).valueId);
+  EXPECT_EQ(3u, pass1_1->getValueId(0, 11).valueId);
 
   // // We know the number of buckets from the previous operation
   Histogram2ndPass hst2_1;
   hst2_1.setBits(2);
-  hst2_1.setBits2(1,2);
+  hst2_1.setBits2(1, 2);
   hst2_1.addField(0);
   hst2_1.addInput(pass1_1);
   hst2_1.setPart(0);
@@ -626,22 +621,22 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto pass2_1 = hst2_1.getResultTable();
 
   EXPECT_EQ(prefix_result->size() * 2, pass2_1->size());
-  EXPECT_EQ(3u, pass2_1->getValueId(0,0).valueId);
-  EXPECT_EQ(2u, pass2_1->getValueId(0,1).valueId);
+  EXPECT_EQ(3u, pass2_1->getValueId(0, 0).valueId);
+  EXPECT_EQ(2u, pass2_1->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(1u, pass2_1->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, pass2_1->getValueId(0,3).valueId);
+  EXPECT_EQ(1u, pass2_1->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, pass2_1->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(0u, pass2_1->getValueId(0,4).valueId);
-  EXPECT_EQ(0u, pass2_1->getValueId(0,5).valueId);
+  EXPECT_EQ(0u, pass2_1->getValueId(0, 4).valueId);
+  EXPECT_EQ(0u, pass2_1->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(0u, pass2_1->getValueId(0,6).valueId);
-  EXPECT_EQ(0u, pass2_1->getValueId(0,7).valueId);
+  EXPECT_EQ(0u, pass2_1->getValueId(0, 6).valueId);
+  EXPECT_EQ(0u, pass2_1->getValueId(0, 7).valueId);
 
 
   Histogram2ndPass hst2_2;
   hst2_2.setBits(2);
-  hst2_2.setBits2(1,2);
+  hst2_2.setBits2(1, 2);
   hst2_2.addField(0);
   hst2_2.addInput(pass1_1);
   hst2_2.setPart(1);
@@ -650,17 +645,17 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto pass2_2 = hst2_2.getResultTable();
 
   EXPECT_EQ(prefix_result->size() * 2, pass2_2->size());
-  EXPECT_EQ(0u, pass2_2->getValueId(0,0).valueId);
-  EXPECT_EQ(0u, pass2_2->getValueId(0,1).valueId);
+  EXPECT_EQ(0u, pass2_2->getValueId(0, 0).valueId);
+  EXPECT_EQ(0u, pass2_2->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(4u, pass2_2->getValueId(0,2).valueId);
-  EXPECT_EQ(0u, pass2_2->getValueId(0,3).valueId);
+  EXPECT_EQ(4u, pass2_2->getValueId(0, 2).valueId);
+  EXPECT_EQ(0u, pass2_2->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(1u, pass2_2->getValueId(0,4).valueId);
-  EXPECT_EQ(0u, pass2_2->getValueId(0,5).valueId);
+  EXPECT_EQ(1u, pass2_2->getValueId(0, 4).valueId);
+  EXPECT_EQ(0u, pass2_2->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(1u, pass2_2->getValueId(0,6).valueId);
-  EXPECT_EQ(0u, pass2_2->getValueId(0,7).valueId);
+  EXPECT_EQ(1u, pass2_2->getValueId(0, 6).valueId);
+  EXPECT_EQ(0u, pass2_2->getValueId(0, 7).valueId);
 
   PrefixSum ps2_1;
   ps2_1.addInput(pass2_1);
@@ -670,17 +665,17 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   ps2_1.execute();
   auto prefix2_1 = ps2_1.getResultTable();
   EXPECT_EQ(prefix_result->size() * 2, prefix2_1->size());
-  EXPECT_EQ(0u, prefix2_1->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, prefix2_1->getValueId(0,1).valueId);
+  EXPECT_EQ(0u, prefix2_1->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, prefix2_1->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(5u, prefix2_1->getValueId(0,2).valueId);
-  EXPECT_EQ(10u, prefix2_1->getValueId(0,3).valueId);
+  EXPECT_EQ(5u, prefix2_1->getValueId(0, 2).valueId);
+  EXPECT_EQ(10u, prefix2_1->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(10u, prefix2_1->getValueId(0,4).valueId);
-  EXPECT_EQ(11u, prefix2_1->getValueId(0,5).valueId);
+  EXPECT_EQ(10u, prefix2_1->getValueId(0, 4).valueId);
+  EXPECT_EQ(11u, prefix2_1->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(11u, prefix2_1->getValueId(0,6).valueId);
-  EXPECT_EQ(12u, prefix2_1->getValueId(0,7).valueId);
+  EXPECT_EQ(11u, prefix2_1->getValueId(0, 6).valueId);
+  EXPECT_EQ(12u, prefix2_1->getValueId(0, 7).valueId);
 
   PrefixSum ps2_2;
   ps2_2.addInput(pass2_1);
@@ -690,17 +685,17 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   ps2_2.execute();
   auto prefix2_2 = ps2_2.getResultTable();
   EXPECT_EQ(prefix_result->size() * 2, prefix2_2->size());
-  EXPECT_EQ(3u, prefix2_2->getValueId(0,0).valueId);
-  EXPECT_EQ(5u, prefix2_2->getValueId(0,1).valueId);
+  EXPECT_EQ(3u, prefix2_2->getValueId(0, 0).valueId);
+  EXPECT_EQ(5u, prefix2_2->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(6u, prefix2_2->getValueId(0,2).valueId);
-  EXPECT_EQ(10u, prefix2_2->getValueId(0,3).valueId);
+  EXPECT_EQ(6u, prefix2_2->getValueId(0, 2).valueId);
+  EXPECT_EQ(10u, prefix2_2->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(10u, prefix2_2->getValueId(0,4).valueId);
-  EXPECT_EQ(11u, prefix2_2->getValueId(0,5).valueId);
+  EXPECT_EQ(10u, prefix2_2->getValueId(0, 4).valueId);
+  EXPECT_EQ(11u, prefix2_2->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(11u, prefix2_2->getValueId(0,6).valueId);
-  EXPECT_EQ(12u, prefix2_2->getValueId(0,7).valueId);
+  EXPECT_EQ(11u, prefix2_2->getValueId(0, 6).valueId);
+  EXPECT_EQ(12u, prefix2_2->getValueId(0, 7).valueId);
 
   RadixCluster2ndPass rx2_1;
   rx2_1.setBits1(2, 0);
@@ -724,18 +719,18 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   rx2_2.execute();
   auto pass_rx2_2 = rx2_2.getResultTable();
 
-  EXPECT_EQ(0u, pass_rx2_1->getValueId(0,0).valueId);
-  EXPECT_EQ(0u, pass_rx2_1->getValueId(0,1).valueId);
-  EXPECT_EQ(0u, pass_rx2_1->getValueId(0,2).valueId);
-  EXPECT_EQ(4u, pass_rx2_1->getValueId(0,3).valueId);
-  EXPECT_EQ(4u, pass_rx2_1->getValueId(0,4).valueId);
-  EXPECT_EQ(1u, pass_rx2_1->getValueId(0,5).valueId);
-  EXPECT_EQ(1u, pass_rx2_1->getValueId(0,6).valueId);
-  EXPECT_EQ(1u, pass_rx2_1->getValueId(0,7).valueId);
-  EXPECT_EQ(25u,pass_rx2_1->getValueId(0,8).valueId);
-  EXPECT_EQ(9u, pass_rx2_1->getValueId(0,9).valueId);
-  EXPECT_EQ(2u, pass_rx2_1->getValueId(0,10).valueId);
-  EXPECT_EQ(3u, pass_rx2_1->getValueId(0,11).valueId);
+  EXPECT_EQ(0u, pass_rx2_1->getValueId(0, 0).valueId);
+  EXPECT_EQ(0u, pass_rx2_1->getValueId(0, 1).valueId);
+  EXPECT_EQ(0u, pass_rx2_1->getValueId(0, 2).valueId);
+  EXPECT_EQ(4u, pass_rx2_1->getValueId(0, 3).valueId);
+  EXPECT_EQ(4u, pass_rx2_1->getValueId(0, 4).valueId);
+  EXPECT_EQ(1u, pass_rx2_1->getValueId(0, 5).valueId);
+  EXPECT_EQ(1u, pass_rx2_1->getValueId(0, 6).valueId);
+  EXPECT_EQ(1u, pass_rx2_1->getValueId(0, 7).valueId);
+  EXPECT_EQ(25u, pass_rx2_1->getValueId(0, 8).valueId);
+  EXPECT_EQ(9u, pass_rx2_1->getValueId(0, 9).valueId);
+  EXPECT_EQ(2u, pass_rx2_1->getValueId(0, 10).valueId);
+  EXPECT_EQ(3u, pass_rx2_1->getValueId(0, 11).valueId);
 
   MergePrefixSum mprx;
   mprx.addInput(prefix2_1);
@@ -744,112 +739,141 @@ TEST_F(RadixJoinTest, multi_pass_radix_cluster_parallel) {
   auto merged_prx = mprx.getResultTable();
 
   EXPECT_EQ(prefix2_1->size(), merged_prx->size());
-  EXPECT_EQ(0u, merged_prx->getValueId(0,0).valueId);
-  EXPECT_EQ(3u, merged_prx->getValueId(0,1).valueId);
+  EXPECT_EQ(0u, merged_prx->getValueId(0, 0).valueId);
+  EXPECT_EQ(3u, merged_prx->getValueId(0, 1).valueId);
 
-  EXPECT_EQ(5u, merged_prx->getValueId(0,2).valueId);
-  EXPECT_EQ(10u, merged_prx->getValueId(0,3).valueId);
+  EXPECT_EQ(5u, merged_prx->getValueId(0, 2).valueId);
+  EXPECT_EQ(10u, merged_prx->getValueId(0, 3).valueId);
 
-  EXPECT_EQ(10u, merged_prx->getValueId(0,4).valueId);
-  EXPECT_EQ(11u, merged_prx->getValueId(0,5).valueId);
+  EXPECT_EQ(10u, merged_prx->getValueId(0, 4).valueId);
+  EXPECT_EQ(11u, merged_prx->getValueId(0, 5).valueId);
 
-  EXPECT_EQ(11u, merged_prx->getValueId(0,6).valueId);
-  EXPECT_EQ(12u, merged_prx->getValueId(0,7).valueId);
+  EXPECT_EQ(11u, merged_prx->getValueId(0, 6).valueId);
+  EXPECT_EQ(12u, merged_prx->getValueId(0, 7).valueId);
 }
 
-TEST_F(RadixJoinTest, determine_dynamic_count) {
-  size_t MTS = 100;
-  auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
+class RadixJoinDynamicParallelizationTest : public AccessTest {
+ public:
+  planop_ptr_t createRadixWith(size_t hash_table_size, size_t probe_table_size) {
+    auto tbl = io::Loader::shortcuts::load("test/tables/companies.tbl");
 
-  auto resizedTbl = tbl->copy_structure();
-  resizedTbl->resize(100000); /// 100k
-  auto fakeTask1 = std::shared_ptr<PlanOperation>(new Barrier());
-  auto fakeTask2 = std::shared_ptr<PlanOperation>(new Barrier());
-  fakeTask1->addInput(resizedTbl);
-  fakeTask1->addField(0);
-  fakeTask2->addInput(resizedTbl);
-  fakeTask2->addField(0);
-  (*fakeTask1)();
-  (*fakeTask2)();
-  std::shared_ptr<PlanOperation> radix = std::shared_ptr<PlanOperation>(new RadixJoin());
-  radix->addField(0);
-  radix->addField(0);
-  radix->addDependency(fakeTask1);
-  radix->addDependency(fakeTask2); 
-  auto dynamicCount1 = radix->determineDynamicCount(MTS);
+    auto probe_table = tbl->copy_structure();
+    probe_table->resize(probe_table_size);
+    auto probe_fake_task = std::make_shared<Barrier>();
+    probe_fake_task->addInput(probe_table);
+    probe_fake_task->addField(0);
 
-  auto resizedTbl2 = tbl->copy_structure();
-  resizedTbl2->resize(10000000); // 10 million
-  auto fakeTask3 = std::shared_ptr<PlanOperation>(new Barrier());
-  auto fakeTask4 = std::shared_ptr<PlanOperation>(new Barrier());
-  fakeTask3->addInput(resizedTbl2);
-  fakeTask3->addField(0);
-  fakeTask4->addInput(resizedTbl2);
-  fakeTask4->addField(0);
-  (*fakeTask3)();
-  (*fakeTask4)();
-  std::shared_ptr<PlanOperation> radix2 = std::shared_ptr<PlanOperation>(new RadixJoin());
-  radix2->addField(0);
-  radix2->addField(0);
-  radix2->addDependency(fakeTask3);
-  radix2->addDependency(fakeTask4); 
-  auto dynamicCount2 = radix2->determineDynamicCount(MTS);
+    auto hash_table = tbl->copy_structure();
+    hash_table->resize(hash_table_size);  /// 100k
+    auto hash_fake_task = std::make_shared<Barrier>();
+    hash_fake_task->addInput(hash_table);
+    hash_fake_task->addField(0);
 
-  ASSERT_GT(dynamicCount2, dynamicCount1);
-}
+    planop_ptr_t radix = std::make_shared<RadixJoin>();
+    radix->addField(0);
+    radix->addField(0);
+    radix->addDependency(probe_fake_task);
+    radix->addDependency(hash_fake_task);
 
-class RadixDynamicCountTest : public AccessTest, public ::testing::WithParamInterface<int> {
-  protected:
-    virtual void SetUp() {
-      auto companies = std::make_shared<TableLoad>();
-      companies->setFileName("tables/companies.tbl");
-      companies->setTableName("companies");
-      (*companies)();
-      
-      auto employees = std::make_shared<TableLoad>();
-      employees->setFileName("tables/employees.tbl");
-      employees->setTableName("employees");
-      (*employees)();
+    (*hash_fake_task)();
+    (*probe_fake_task)();
 
-      radix = std::make_shared<RadixJoin>();
-      radix->addField(0);
-      radix->addField(1);
-      radix->setBits1(4);
-      radix->setBits2(4);
-      radix->setOperatorId("testRadix");
-      radix->addDependency(companies);
-      radix->addDependency(employees);
-
-      // Adding the waiter before applyDynamicParallelization ensures,
-      // that the task with radix as dependency get properly rerouted.
-      waiter = std::make_shared<taskscheduler::WaitTask>();
-      waiter->addDependency(radix);
-
-      auto dynamicCount = GetParam();
-
-      tasks = radix->applyDynamicParallelization(dynamicCount);
-
-    }
-
-    std::shared_ptr<RadixJoin> radix;
-    std::shared_ptr<taskscheduler::WaitTask> waiter;
-    std::vector<taskscheduler::task_ptr_t> tasks;
+    return radix;
+  }
 };
 
-TEST_P(RadixDynamicCountTest, virtual_radix_no_longer_dependency) {
+
+TEST_F(RadixJoinDynamicParallelizationTest, bigger_join_par_with_bigger_table) {
+  // This is a low mts in order to make sure table sizes still have an effect
+  // on the degree of parallelization.
+  size_t MTS = 100;
+
+  auto radix = createRadixWith(100000, 100000);  // 100k
+  auto join_par_1 = radix->determineDynamicCount(MTS).join_par;
+
+  auto radix2 = createRadixWith(10000000, 10000000);  // 10 million
+  auto join_par_2 = radix2->determineDynamicCount(MTS).join_par;
+
+  ASSERT_GT(join_par_2, join_par_1);
+}
+
+TEST_F(RadixJoinDynamicParallelizationTest, bigger_hash_par_with_bigger_hash_table) {
+  size_t MTS = 100;
+
+  auto radix = createRadixWith(100000, 100000);
+  auto hash_par_1 = radix->determineDynamicCount(MTS).hash_par;
+
+  auto radix_2 = createRadixWith(10000000, 100000);
+  auto hash_par_2 = radix_2->determineDynamicCount(MTS).hash_par;
+
+  ASSERT_GT(hash_par_2, hash_par_1);
+}
+
+TEST_F(RadixJoinDynamicParallelizationTest, bigger_probe_par_with_bigger_probe_table) {
+  size_t MTS = 100;
+
+  auto radix = createRadixWith(100000, 100000);
+  auto probe_par_1 = radix->determineDynamicCount(MTS).probe_par;
+
+  auto radix_2 = createRadixWith(100000, 10000000);
+  auto probe_par_2 = radix_2->determineDynamicCount(MTS).probe_par;
+
+  ASSERT_GT(probe_par_2, probe_par_1);
+}
+
+class RadixApplyDynParallelizationTest : public AccessTest,
+                                         public ::testing::WithParamInterface<taskscheduler::DynamicCount> {
+ protected:
+  virtual void SetUp() {
+    AccessTest::SetUp();
+    auto companies = std::make_shared<TableLoad>();
+    companies->setFileName("tables/companies.tbl");
+    companies->setTableName("companies");
+    (*companies)();
+
+    auto employees = std::make_shared<TableLoad>();
+    employees->setFileName("tables/employees.tbl");
+    employees->setTableName("employees");
+    (*employees)();
+
+    radix = std::make_shared<RadixJoin>();
+    radix->addField(0);
+    radix->addField(1);
+    radix->setBits1(4);
+    radix->setBits2(4);
+    radix->setOperatorId("testRadix");
+    radix->addDependency(companies);
+    radix->addDependency(employees);
+
+    // Adding the waiter before applyDynamicParallelization ensures,
+    // that the task with radix as dependency get properly rerouted.
+    waiter = std::make_shared<taskscheduler::WaitTask>();
+    waiter->addDependency(radix);
+
+    auto dynamicCount = GetParam();
+
+    tasks = radix->applyDynamicParallelization(dynamicCount);
+  }
+
+  std::shared_ptr<RadixJoin> radix;
+  std::shared_ptr<taskscheduler::WaitTask> waiter;
+  std::vector<taskscheduler::task_ptr_t> tasks;
+};
+
+TEST_P(RadixApplyDynParallelizationTest, virtual_radix_no_longer_dependency) {
   // Radix should no longer be a dependency of the waiter.
   // It should have been replaced by a concrete taks of the radix transformation.
   ASSERT_FALSE(waiter->isDependency(radix));
 }
 
-TEST_P(RadixDynamicCountTest, concrete_radix_is_dependency) {
+TEST_P(RadixApplyDynParallelizationTest, concrete_radix_is_dependency) {
   auto finalOp = std::dynamic_pointer_cast<PlanOperation>(tasks.back());
 
   // The final op of the radix transformation tasks should be a new dependency of the waiter
   ASSERT_TRUE(waiter->isDependency(finalOp));
 }
 
-TEST_P(RadixDynamicCountTest, execute_and_check_result) {
+TEST_P(RadixApplyDynParallelizationTest, execute_and_check_result) {
   auto finalOp = std::dynamic_pointer_cast<PlanOperation>(tasks.back());
   tasks.push_back(waiter);
 
@@ -864,6 +888,18 @@ TEST_P(RadixDynamicCountTest, execute_and_check_result) {
   ASSERT_TRUE(referenceTable->contentEquals(resultTable));
 }
 
-INSTANTIATE_TEST_CASE_P(RadixJoinDynamicParallelizationTest, RadixDynamicCountTest, ::testing::Values(1, 4));
+INSTANTIATE_TEST_CASE_P(RadixJoinApplyDynamicParallelizationTest,
+                        RadixApplyDynParallelizationTest,
+                        ::testing::Values(taskscheduler::DynamicCount{1, 1, 1, 1},
+                                          taskscheduler::DynamicCount{4, 4, 4, 4}));
 
-}}
+// Test assures that the default MTS value of 0
+// results in a degree of 1. This ensures that applyDynamicParallelization
+// will work properly.
+TEST(RadixJoinApplyDynamicParallelizationTest, mts_0_results_in_degree_1) {
+  RadixJoin rj;
+  taskscheduler::DynamicCount defaultCount{1, 1, 1, 1};
+  ASSERT_EQ(rj.determineDynamicCount(0), defaultCount);
+}
+}
+}

@@ -45,40 +45,14 @@ class PlanOperation : public OutputTask {
   /* Returns all errors of dependencies as one concatenated std::string */
   std::string getDependencyErrorMessages();
 
-
-  /* 
-   * The model used is based on a/x + b as an equation, whereas x
-   * is the number of instances used. The result is the mean task execution time
-   * for this operator. a and b are parameters based on the input table size.
-   * b also denotes the minimal possible mean task execution time.
-   * It thus sets the minimal achievable mts.
-   * for determineDynamicCount 
-   */
-  virtual size_t getTotalTableSize();
-  /* determine the b parameter also known as minimal achievable mts */
-  virtual double calcMinMts(double totalTblSizeIn100k);
-  /* determine the a parameter of the model. */
-  virtual double calcA(double totalTblSizeIn100k);
-  /*
-   * The standard implementation of the calc* method assume
-   * a straight line model with a*x + b.
-   * You can either override the following parameters in your operator
-   * or you can supply your calc* methods.
-   */
-  virtual double min_mts_a() { return 0; }
-  virtual double min_mts_b() { return 0; }
-  virtual double a_a() { return 0; }
-  virtual double a_b() { return 0; }
-
  public:
   virtual ~PlanOperation();
 
-  virtual size_t determineDynamicCount(size_t maxTaskRunTime);
-
   void setLimit(uint64_t l);
   void setProducesPositions(bool p);
-  
+
   void setTXContext(tx::TXContext ctx);
+  tx::TXContext getTXContext();
 
   void addInput(storage::c_aresource_ptr_t t);
 
@@ -88,21 +62,27 @@ class PlanOperation : public OutputTask {
   storage::c_ahashtable_ptr_t getResultHashTable(size_t index = 0) const;
 
   void addField(field_t field);
-  void addField(const Json::Value &field);
+  void addField(const Json::Value& field);
   void addNamedField(const field_name_t& field);
 
   void setPlanId(std::string i);
+  std::string getPlanId();
+  
   void setOperatorId(std::string i);
+  const std::string& getOperatorId();
   const std::string& planOperationName() const;
   void setPlanOperationName(const std::string& name);
 
+  void disablePapiTrace();
+
   virtual void operator()() noexcept;
   virtual const std::string vname();
-  const PlanOperation *execute();
+  virtual const PlanOperation* execute();
 
   void setErrorMessage(const std::string& message);
   void setResponseTask(const std::shared_ptr<ResponseTask>& responseTask);
   std::shared_ptr<ResponseTask> getResponseTask() const;
+
  protected:
   /// Containers to store and handle input/output or rather result data.
   OperationData input;
@@ -121,16 +101,15 @@ class PlanOperation : public OutputTask {
   std::weak_ptr<ResponseTask> _responseTask;
 
   bool producesPositions = true;
+  bool _papi_disabled = false;
 
   std::string _planId;
   std::string _operatorId;
   std::string _planOperationName;
-  
+
   tx::TXContext _txContext;
-
 };
-
-
-}}
+}
+}
 
 #endif  // SRC_LIB_ACCESS_PLANOPERATION_H_

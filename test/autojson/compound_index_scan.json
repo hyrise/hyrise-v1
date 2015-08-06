@@ -1,0 +1,53 @@
+{
+  "operators": {
+    "-1": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "reference/index_aware_test_result.tbl"
+    },
+    "0": {
+      "type": "TableLoad",
+      "table": "employees",
+      "filename": "index_test.tbl"
+    },
+    "1": {
+      "type": "CreateGroupkeyIndex",
+      "fields": ["col_0", "col_3"],
+      "index_name": "test_main_idx_0_and_3"
+    },
+
+    "1_delta": {
+      "type": "CreateDeltaIndex",
+      "fields": ["col_0", "col_3"],
+      "index_name": "test_delta_idx_0_and_3"
+    },
+    "2": {
+      "type" : "NoOp"
+    },
+    "3" : {
+        "type" : "InsertScan",
+        "data" : [
+            [123,456,789,123,456,678,998,231,144,221],
+            [200,123,202,203,204,205,206,207,208,210],
+            [512,456,789,123,456,678,998,231,144,221]
+        ]
+    },
+    "4": {
+      "type": "CompoundIndexScan",
+      "predicates" : [
+        [0, 200],
+        [3, 203]
+      ],
+      "mainindex": "test_main_idx_0_and_3",
+      "deltaindex": "test_delta_idx_0_and_3"
+    } 
+  },
+  "edges": [
+    ["0", "1"],
+    ["0", "1_delta"],
+
+    ["1", "2"],
+    ["1_delta", "2"],
+    
+    ["0", "3"], ["2", "3"], ["3", "4"]]
+}

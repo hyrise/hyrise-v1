@@ -1,0 +1,11 @@
+{
+	"prepare": "PREPARE prep_test: SELECT * FROM students WHERE grade < ?;",
+	
+	"test": "
+		CREATE TABLE students FROM TBL FILE 'students.tbl';
+		EXECUTE prep_test(3.0);",
+
+	"reference": "
+		CREATE TABLE reference FROM TBL FILE 'students.tbl';
+		SELECT * FROM reference WHERE grade < 3.0;"
+}

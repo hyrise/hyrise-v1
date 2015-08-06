@@ -34,6 +34,5 @@ TEST_F(UnloadAllTests, basic_unload_all_test) {
   ASSERT_THROW(sm->getTable("table2"), io::ResourceManagerException);
   ASSERT_THROW(sm->getTable("table3"), io::ResourceManagerException);
 }
-
 }
 }

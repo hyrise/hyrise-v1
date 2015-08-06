@@ -8,11 +8,10 @@ namespace access {
 
 class ExpressionBuildError : public std::runtime_error {
  public:
-  explicit ExpressionBuildError(const std::string &what): std::runtime_error(what) {}
+  explicit ExpressionBuildError(const std::string& what) : std::runtime_error(what) {}
 };
 
-SimpleFieldExpression *buildFieldExpression(PredicateType::type,const Json::Value &);
-SimpleExpression *buildExpression(const Json::Value &);
-
-} } // namespace hyrise::access
-
+SimpleFieldExpression* buildFieldExpression(PredicateType::type, const Json::Value&);
+SimpleExpression* buildExpression(const Json::Value&);
+}
+}  // namespace hyrise::access

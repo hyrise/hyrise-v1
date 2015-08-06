@@ -8,7 +8,8 @@
 #include "helper/types.h"
 
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 /**
  * The task of the IndexJoin operator is to take a pos list as the
@@ -21,20 +22,18 @@ class IndexJoin : public PlanOperation {
 
   // Basic Information needed
   std::string _indexName;
-  
-  const pos_list_t *_tab_pos_list;
-  
+
+  const pos_list_t* _tab_pos_list;
+
   storage::c_atable_ptr_t _left;
   storage::c_atable_ptr_t _right;
 
-public:
-
-  static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+ public:
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
   void executePlanOperation();
-
 };
+}
+}
 
-}}
-
-#endif // SRC_LIB_ACCESS_EXPR_INDEX_JOIN_H_
+#endif  // SRC_LIB_ACCESS_EXPR_INDEX_JOIN_H_

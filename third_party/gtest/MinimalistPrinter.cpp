@@ -23,8 +23,6 @@ void MinimalistPrinter::OnTestStart(const ::testing::TestInfo &test_info) {
       + test_info.test_case_name() + "." + test_info.name()
       // Add type param or value param information when available
       + ((vp || tp) ? " " : "") + (vp ? vp: "") + (tp ? tp: "");
-  printf("%s", _impl->_current_test.c_str());
-  fflush(stdout);
 }
 
 void MinimalistPrinter::OnTestPartResult(const ::testing::TestPartResult &test_part_result) {
@@ -34,23 +32,19 @@ void MinimalistPrinter::OnTestPartResult(const ::testing::TestPartResult &test_p
 }
 
 void MinimalistPrinter::OnTestEnd(const ::testing::TestInfo &test_info) {
-  size_t len = _impl->_current_test.length();
-  // clear previously printed testname and replace with . or F
-  printf("%s%s%s%s",
-         std::string(len, '\b').c_str(),
-         std::string(len, ' ' ).c_str(),
-         std::string(len, '\b').c_str(),
-         _impl->_tests[_impl->_current_test].size() > 0 ? "F" : ".");
+  printf("%s", _impl->_tests[_impl->_current_test].size() > 0 ? "F" : ".");
   fflush(stdout);
 }
 
 void MinimalistPrinter::OnTestProgramEnd(const ::testing::UnitTest &unit) {
   auto &_tests = _impl->_tests;
-  printf("\n");
   size_t failed_tests = std::accumulate(_tests.begin(), _tests.end(), 0u,
                                         [](size_t acc, decltype(*_tests.begin()) value) -> size_t {
                                           return acc + value.second.size();
                                         });
+  if (failed_tests) {
+      printf("\n");
+  }
   for (const auto & kvs: _tests) {
     if (kvs.second.size())
       printf("%s\n", kvs.first.c_str());

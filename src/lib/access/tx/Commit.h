@@ -4,19 +4,22 @@
 
 #include <access/system/PlanOperation.h>
 
-namespace hyrise { namespace access {
+namespace hyrise {
+namespace access {
 
 class Commit : public PlanOperation {
 
-public:
+ public:
+  void executePlanOperation();
 
-	void executePlanOperation();
+  static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
 
-	static std::shared_ptr<PlanOperation> parse(const Json::Value &data);
+  void setFlushLog(bool flush_log);
 
-
+ protected:
+  bool _flush_log = true;
 };
+}
+}
 
-}}
-
-#endif // SRC_LIB_ACCESS_TX_COMMIT_H_
+#endif  // SRC_LIB_ACCESS_TX_COMMIT_H_

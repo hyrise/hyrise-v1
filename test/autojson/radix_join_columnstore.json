@@ -1,0 +1,29 @@
+{
+    "operators": {
+         "-1": {
+                "type": "TableLoad",
+                "table": "reference",
+                "filename": "tables/companies_employees_joined.tbl"
+            },
+        "0": {
+            "type": "TableLoad",
+            "table": "companies",
+            "filename": "tables/companies_columnstore.tbl"
+        },
+        "1": {
+            "type": "TableLoad",
+            "table": "employees",
+            "filename": "tables/employees_columnstore.tbl"
+        },
+        "2": {
+            "type": "RadixJoin",
+            "bits1": 2,
+            "bits2": 1,
+            "hash_par": 1,
+            "probe_par":1,
+            "join_par": 1,
+            "fields": [0, 1]
+        }
+    },
+    "edges": [["0", "2"], ["1", "2"]]
+}

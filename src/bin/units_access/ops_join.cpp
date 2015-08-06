@@ -2,11 +2,14 @@
 #include "testing/test.h"
 #include <string>
 #include "helper.h"
-#include <access.h>
-#include <storage.h>
 
-
-#include <io/shortcuts.h>
+#include "access/JoinScan.h"
+#include "access/SimpleTableScan.h"
+#include "access/HashBuild.h"
+#include "access/HashJoinProbe.h"
+#include "io/shortcuts.h"
+#include "storage/AbstractTable.h"
+#include "storage/AbstractHashTable.h"
 
 namespace hyrise {
 namespace access {
@@ -32,7 +35,6 @@ TEST_F(JoinTests, DISABLED_join_column_renaming) {
   ASSERT_EQ(table1_join_table2->metadataAt(4).getName(), std::string("currency") + RENAMED_COLUMN_APPENDIX_RIGHT);
   ASSERT_EQ(table1_join_table2->metadataAt(5).getName(), std::string("amount") + RENAMED_COLUMN_APPENDIX_RIGHT);
   ASSERT_EQ(table1_join_table2->metadataAt(6).getName(), "testcolumn");
-
 }
 
 TEST_F(JoinTests, join_exchange_rates) {
@@ -93,9 +95,6 @@ TEST_F(JoinTests, hash_join_exchange_rates_multiple_columns) {
 
   const auto& reference = io::Loader::shortcuts::load("test/reference/join_exchange_rates.tbl");
   ASSERT_TRUE(result->contentEquals(reference));
-
-}
-
 }
 }
-
+}

@@ -8,20 +8,16 @@
 namespace hyrise {
 namespace access {
 
-class AbstractPlanOpTransformation{
-public:
-  AbstractPlanOpTransformation(){};
-  virtual ~AbstractPlanOpTransformation(){};
+class AbstractPlanOpTransformation {
+ public:
+  AbstractPlanOpTransformation() {};
+  virtual ~AbstractPlanOpTransformation() {};
 
-  virtual void transform(Json::Value &op, const std::string &operatorId, Json::Value &query)=0;
+  virtual void transform(Json::Value& op, const std::string& operatorId, Json::Value& query) = 0;
 
-  static std::string name() {
-    return "RadixJoin";
-  }
-
+  static std::string name() { return "RadixJoin"; }
 };
-
 }
 }
 
-#endif // SRC_LIB_ACCES_ABSTRACTPLANOPTRANSFORMATION_H
+#endif  // SRC_LIB_ACCES_ABSTRACTPLANOPTRANSFORMATION_H

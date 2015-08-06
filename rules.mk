@@ -1,14 +1,21 @@
 ifndef RULES_MK
 RULES_MK := defined
 
+ifndef MAKECMDGOALS
+  MAKECMDGOALS :=
+endif
+.SUFFIXES:
+
+MAKEFLAGS += -r
+
 RUNDIR := $(shell pwd)
 ifndef TOP
-TOP := $(shell \
-top=$(RUNDIR); \
-while [ ! -r "$$top/.top" ] && [ "$$top" != "" ]; do \
-top=$${top%/*}; \
-done; \
-echo $$top)
+  TOP := $(shell \
+    top=$(RUNDIR); \
+    while [ ! -r "$$top/.top" ] && [ "$$top" != "" ]; do \
+      top=$${top%/*}; \
+    done; \
+   echo $$top)
 endif
 
 define uniq_
@@ -19,6 +26,7 @@ endef
 
 reverse = $(if $(1),$(call reverse,$(wordlist 2,$(words $(1)),$(1)))) $(firstword $(1))
 uniq = $(strip $(call reverse,$(call uniq_,$(call reverse,$(1)))))
+
 inherit = $(foreach _,$(addsuffix .$(2),$(1)),$(value $(_)))
 
 define inherit_
@@ -37,72 +45,38 @@ endif
 define library
 # user replace-able
 ifndef $(1).defined
+$(1).defined := is defined
+
 $(1).deps ?=
-$(1).cpps ?= $$(shell find $($(1)) -type f -name "*.cpp")
-$(1).objs ?= $$($(1).cpps:%=$(OBJDIR)%.o)
-$(1).lib ?= $(RESULT_DIR)/lib$$($(1).libname)_$(BLD).a
+$(1).cpps ?= $(shell find $($(1)) -type f -name "*.cpp")
+$(1).objs ?= $$($(1).cpps:%=$(OBJDIR)%.o) $$($(1).c:%=$(OBJDIR)%.o)
 $(1).libs ?=
 $(1).includes ?=
-$(1).defined := is defined
 $(1).LDFLAGS ?=
 $(1).CPPFLAGS ?=
 $(1).CFLAGS ?=
 $(1).CXXFLAGS ?=
+$(1).LINK_DIRS ?=
 
 # rules
-$$($(1).lib) : $$($(1).objs)
-all += $$($(1).lib)
 # inheriting information by first filling in our pieces...
-$(1).use_deps := $$($(1).lib)
-$(1).use_LIBS := $$($(1).libname)_$(BLD) $$($(1).libs)
-$(1).use_EXT_LIBS := $$($(1).libs)
-$(1).use_LINK_DIRS := $$(realpath $$(dir $$($(1).lib)))
-$(1).use_INCLUDE_DIRS := $$($(1).includes)
-$(1).use_LDFLAGS := $$($(1).LDFLAGS)
+$(1).use_deps += $$($(1).objs)
+$(1).use_LIBS += $$($(1).libname)_$(BLD) $$($(1).libs)
+$(1).use_EXT_LIBS += $$($(1).libs)
+$(1).use_LINK_DIRS += $$(realpath $$(dir $$($(1).lib))) $$($(1).LINK_DIRS)
+$(1).use_INCLUDE_DIRS += $$($(1).includes)
+$(1).use_LDFLAGS += $$($(1).LDFLAGS)
 $(1).use_CPPFLAGS := $$($(1).CPPFLAGS)
 $(1).use_CFLAGS := $$($(1).CFLAGS)
 $(1).use_CXXFLAGS := $$($(1).CXXFLAGS)
 $(1).use_OBJS := $$($(1).objs)
+
 $$(eval $$(call inherit_all,$(1)))
 
 $$($(1).objs) : INCLUDE_DIRS += $$($(1).use_INCLUDE_DIRS)
 $$($(1).objs) : CPPFLAGS += $$($(1).use_CPPFLAGS)
 $$($(1).objs) : CFLAGS += $$($(1).use_CFLAGS)
 $$($(1).objs) : CXXFLAGS += $$($(1).use_CXXFLAGS)
-$$($(1).objs) : LIB := $(1)
-ifdef build_debug
-$$(info loaded $(1) with deps $$($(1).deps))
-endif
-ifneq "$(MAKECMDGOALS)" "clean"
--include $$($(1).cpps:%=$$(OBJDIR)%.d)
-endif
-endif
-endef
-
-define binary
-# user replace-able
-ifndef $(1).defined
-$(1).deps ?=
-$(1).cpps ?= $$(wildcard $($(1))/*.cpp)
-$(1).objs ?= $$($(1).cpps:%=$(OBJDIR)%.o)
-$(1).binary ?= $(RESULT_DIR)/$($(1).binname)_$(BLD)
-$(1).defined := is defined
-$(1).libs ?=
-# rules
-$(1).use_OBJS := $$($(1).objs)
-$$(eval $$(call inherit_all,$(1)))
-
-$$($(1).binary) : $$($(1).objs) $$($(1).use_deps)
-all: $$($(1).binary)
-all += $$($(1).binary)
-
-$$($(1).binary) : LDFLAGS += $$($(1).use_LDFLAGS)
-$$($(1).binary) : LINK_DIRS += $$($(1).use_LINK_DIRS)
-$$($(1).binary) : LIBS += $$($(1).use_LIBS) $$($(1).libs)
-$$($(1).objs) : INCLUDE_DIRS += $$($(1).use_INCLUDE_DIRS)
-$$($(1).objs) : CXXFLAGS += $$($(1).use_CXXFLAGS)
-$$($(1).objs) : CFLAGS += $$($(1).use_CFLAGS)
-$$($(1).objs) : CPPFLAGS += $$($(1).use_CPPFLAGS)
 
 ifdef build_debug
 $$(info loaded $(1) with deps $$($(1).deps))
@@ -117,7 +91,7 @@ define full_link_binary
 # user replace-able
 ifndef $(1).defined
 $(1).deps ?=
-$(1).cpps ?= $$(wildcard $($(1))/*.cpp)
+$(1).cpps ?= $(shell find $($(1)) -type f -name "*.cpp")
 $(1).objs ?= $$($(1).cpps:%=$(OBJDIR)%.o)
 $(1).binary ?= $(RESULT_DIR)/$($(1).binname)_$(BLD)
 $(1).defined := is defined
@@ -126,13 +100,18 @@ $(1).libs ?=
 $(1).use_OBJS := $$($(1).objs)
 $$(eval $$(call inherit_all,$(1)))
 
-$$($(1).binary) : $$($(1).use_OBJS)
+
 all: $$($(1).binary)
 all += $$($(1).binary)
 
+$$($(1).binary) : $$($(1).use_OBJS)
 $$($(1).binary) : LDFLAGS += $$($(1).use_LDFLAGS)
 $$($(1).binary) : LINK_DIRS += $$($(1).use_LINK_DIRS)
 $$($(1).binary) : LIBS += $$($(1).use_EXT_LIBS) $$($(1).libs)
+
+$$($(1).binary): $(TOOLING)
+	$(call echo_cmd,LINK $(CXX) $(BLD) $$@) $$(CXX) $$(CXXFLAGS) -o $$@ $$(filter %.o,$$^) -Wl,-whole-archive $$(addprefix -l,$$(LIBS)) -Wl,-no-whole-archive $$(addprefix -L,$$(LINK_DIRS)) $$(LDFLAGS)
+
 $$($(1).objs) : INCLUDE_DIRS += $$($(1).use_INCLUDE_DIRS)
 $$($(1).objs) : CXXFLAGS += $$($(1).use_CXXFLAGS)
 $$($(1).objs) : CFLAGS += $$($(1).use_CFLAGS)
@@ -148,7 +127,7 @@ endif
 endef
 
 define test-binary
-$(eval $(call binary,$(1)))
+$(eval $(call full_link_binary,$(1)))
 test-tgts += test_$$($(1).binary)
 .PHONY: test_$$($(1).binary)
 test_$$($(1).binary): $$($(1).binary)
@@ -179,6 +158,8 @@ TOOLING :=
 WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi)
 WITH_MYSQL:= 1
 
+PERSISTENCY ?= NONE
+
 include $(PROJECT_ROOT)/settings.mk
 
 BLD ?= debug
@@ -189,15 +170,10 @@ ifeq ($(WITH_COVERAGE),1)
 PLUGINS += coverage
 endif
 
+COMMON_FLAGS += -D PERSISTENCY_$(PERSISTENCY)
+
 ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
-endif
-
-
-ifeq ($(WITH_V8),1)
-ifndef V8_BASE_DIRECTORY
-$(error V8_BASE_DIRECTORY is not defined)
-endif
 endif
 
 include $(PROJECT_ROOT)/makefiles/config.$(COMPILER).mk
@@ -212,14 +188,17 @@ CPPFLAGS.release += -DEXPENSIVE_TESTS -DPRODUCTION -DNDEBUG
 CFLAGS.debug +=
 CFLAGS.release +=
 
+CXXFLAGS.debug +=
+CXXFLAGS.release +=
+
 LDFLAGS.debug +=
 LDFLAGS.release +=
 
 COMMON_FLAGS.debug += -O0
-COMMON_FLAGS.release += -O3 -march=native
-COMMON_FLAGS += -g -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS.release += -O3
+COMMON_FLAGS += -ggdb -march=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
-CPPFLAGS += -MMD -pipe $(CPPFLAGS.$(BLD))
+CPPFLAGS += -MMD -MP -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))
 CXXFLAGS += -std=c++11 $(COMMON_FLAGS) $(CXXFLAGS.$(BLD))
 
@@ -247,14 +226,17 @@ ci_build: ci_steps
 	@mkdir -p $(@D)
 	@touch $@
 
-$(RESULT_DIR)/%.a: $(TOOLING)
-	$(call echo_cmd,AR $(AR) $@) $(AR) crs $@ $(filter %.o,$?)
+.SECONDEXPANSION:
 
-$(RESULT_DIR)/%: $(TOOLING)
-	$(call echo_cmd,LINK $(CXX) $(BLD) $@) $(CXX) $(CXXFLAGS) -o $@ $(filter %.o,$^) -Wl,-whole-archive $(addprefix -l,$(LIBS)) -Wl,-no-whole-archive $(addprefix -L,$(LINK_DIRS)) $(LDFLAGS)
+$(OBJDIR)%.cpp.o: %.cpp $$(TOOLING) | $$(@D)/.fake
+	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
+
+$(OBJDIR)%.c.o : %.c $$(TOOLING) | $$(@D)/.fake
+	$(call echo_cmd,CC $(CC) $(BLD) $<) $(CC) $(CPPFLAGS) $(CFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
+
 
 # Necessary to allow for a second expansion to create dirs
-.SECONDEXPANSION:
+
 test: $$(test-tgts)
 
 all: $$(all)
@@ -265,15 +247,9 @@ clean:
 	rm -rf $(PROJECT_ROOT)/src/lib/access/expressions/expressionGeneration/generatedExpressions
 
 
-$(OBJDIR)%.cpp.o : %.cpp $(TOOLING) | $$(@D)/.fake
-	$(call echo_cmd,CXX $(CXX) $(BLD) $<) $(CXX) $(CPPFLAGS) $(CXXFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
-
-$(OBJDIR)%.c.o : %.c $(TOOLING) | $$(@D)/.fake
-	$(call echo_cmd,CC $(CC) $(BLD) $<) $(CC) $(CPPFLAGS) $(CFLAGS) $(addprefix -I,$(INCLUDE_DIRS)) -c -o $@ $<
-
 # Ensure that intermediate files (e.g. the foo.o caused by "foo : foo.c")
 #  are not auto-deleted --- causing a re-compile every second "make".
-.SECONDARY  	:
+.SECONDARY:
 .SUFFIXES:
 %.              :;@echo '$($*)'
 

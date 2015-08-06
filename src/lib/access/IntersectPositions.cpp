@@ -7,7 +7,9 @@
 namespace hyrise {
 namespace access {
 
-namespace { auto _ = QueryParser::registerPlanOperation<IntersectPositions>("IntersectPositions"); }
+namespace {
+auto _ = QueryParser::registerPlanOperation<IntersectPositions>("IntersectPositions");
+}
 
 std::shared_ptr<PlanOperation> IntersectPositions::parse(const Json::Value&) {
   return std::make_shared<IntersectPositions>();
@@ -16,12 +18,10 @@ std::shared_ptr<PlanOperation> IntersectPositions::parse(const Json::Value&) {
 void IntersectPositions::executePlanOperation() {
   const auto& tables = input.getTables();
   std::vector<std::shared_ptr<const storage::PointerCalculator>> pcs(tables.size());
-  std::transform(begin(tables), end(tables),
-                 begin(pcs),
-                 [] (decltype(*begin(tables)) table) {
-                   return std::dynamic_pointer_cast<const storage::PointerCalculator>(table);
-                 });
-  if (std::all_of(begin(pcs), end(pcs), [] (decltype(*begin(tables)) pc) { return pc != nullptr; })) {
+  std::transform(begin(tables), end(tables), begin(pcs), [](decltype(*begin(tables)) table) {
+    return std::dynamic_pointer_cast<const storage::PointerCalculator>(table);
+  });
+  if (std::all_of(begin(pcs), end(pcs), [](decltype(*begin(tables)) pc) { return pc != nullptr; })) {
     addResult(storage::PointerCalculator::intersect_many(begin(pcs), end(pcs)));
   } else {
     throw std::runtime_error(_planOperationName + " is only supported for PointerCalculators (IntersectPositions.cpp)");
@@ -31,6 +31,5 @@ void IntersectPositions::executePlanOperation() {
 const std::string IntersectPositions::vname() {
   return "IntersectPositions";
 };
-
 }
 }

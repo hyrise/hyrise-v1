@@ -10,21 +10,14 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<JoinScan>("JoinScan");
+auto _ = QueryParser::registerPlanOperation<JoinScan>("JoinScan");
 }
 
-JoinScan::JoinScan(const JoinType::type t) :
-                   _join_type(t),
-                   _join_condition(nullptr) {
-}
+JoinScan::JoinScan(const JoinType::type t) : _join_type(t), _join_condition(nullptr) {}
 
-JoinScan::~JoinScan() {
-  delete _join_condition;
-}
+JoinScan::~JoinScan() { delete _join_condition; }
 
-void JoinScan::setupPlanOperation() {
-  _join_condition->walk(input.getTables());
-}
+void JoinScan::setupPlanOperation() { _join_condition->walk(input.getTables()); }
 
 void JoinScan::executePlanOperation() {
   if (_join_type != JoinType::EQUI) {
@@ -35,8 +28,7 @@ void JoinScan::executePlanOperation() {
     throw std::runtime_error("JoinScan needs a defined join condition");
   }
 
-  auto left_source = input.getTable(0),
-      right_source = input.getTable(1);
+  auto left_source = input.getTable(0), right_source = input.getTable(1);
 
   storage::atable_ptr_t left_target = left_source->copy_structure(nullptr, true);
   storage::atable_ptr_t right_target = right_source->copy_structure(nullptr, true);
@@ -54,11 +46,11 @@ void JoinScan::executePlanOperation() {
     }
   }
 
-  addResult(std::make_shared<storage::MutableVerticalTable>(
-      std::vector<storage::atable_ptr_t> {left_target, right_target}));
+  addResult(
+      std::make_shared<storage::MutableVerticalTable>(std::vector<storage::atable_ptr_t>{left_target, right_target}));
 }
 
-std::shared_ptr<PlanOperation> JoinScan::parse(const Json::Value &v) {
+std::shared_ptr<PlanOperation> JoinScan::parse(const Json::Value& v) {
   JoinType::type t = JoinType::type(v["join_type"].asUInt());
   std::shared_ptr<JoinScan> s = std::make_shared<JoinScan>(t);
 
@@ -74,12 +66,10 @@ std::shared_ptr<PlanOperation> JoinScan::parse(const Json::Value &v) {
   return s;
 }
 
-const std::string JoinScan::vname() {
-  return "JoinScan";
-}
+const std::string JoinScan::vname() { return "JoinScan"; }
 
 void JoinScan::addCombiningClause(const ExpressionType etype) {
-  CompoundJoinExpression *c = new CompoundJoinExpression(etype);
+  CompoundJoinExpression* c = new CompoundJoinExpression(etype);
   if (_join_condition == nullptr) {
     _join_condition = c;
   } else {
@@ -88,19 +78,22 @@ void JoinScan::addCombiningClause(const ExpressionType etype) {
   _compound_stack.push(c);
 }
 
-void JoinScan::addJoinExpression(JoinExpression *expression) {
+void JoinScan::addJoinExpression(JoinExpression* expression) {
   if (_join_condition == nullptr) {
     _join_condition = expression;
   } else {
     if (_compound_stack.size() == 0)
       throw std::runtime_error("Compound expression stack is empty");
-    CompoundJoinExpression *top =  _compound_stack.top();
-    if (top->rhs == nullptr) top->rhs = expression;
-    else if (top->lhs == nullptr) top->lhs = expression;
-    else throw std::runtime_error("Invalid expression");
-    if (top->rhs != nullptr && top->lhs != nullptr) _compound_stack.pop();
+    CompoundJoinExpression* top = _compound_stack.top();
+    if (top->rhs == nullptr)
+      top->rhs = expression;
+    else if (top->lhs == nullptr)
+      top->lhs = expression;
+    else
+      throw std::runtime_error("Invalid expression");
+    if (top->rhs != nullptr && top->lhs != nullptr)
+      _compound_stack.pop();
   }
 }
-
 }
 }

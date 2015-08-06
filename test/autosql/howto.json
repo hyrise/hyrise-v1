@@ -1,0 +1,25 @@
+/*
+ Files in this directory with the ending .json will be
+ run and evaluated by src/bin/access/autosql.cpp.
+ Queries in the "test"-field of this json object will be evaluated
+ against the query specified in the "reference"-field.
+
+ "test" is expected to be an SQL string or array of SQL strings, that will be executed.
+ If it is an array, the result of the last string will be evaluated.
+
+ "reference" can be either a SQL string or a JSON-query, which
+ will be executed and compared with the result of "test"
+ */
+{
+    "test": "CREATE TABLE students FROM TBL FILE 'students.tbl';
+             SELECT * FROM students",
+             
+    "reference": {
+    	"operators": {
+	        "0": {
+	            "type": "TableLoad",
+	            "filename": "students.tbl"
+	        }
+    	}
+    }
+}

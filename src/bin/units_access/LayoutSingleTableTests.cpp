@@ -10,8 +10,8 @@ namespace hyrise {
 namespace access {
 
 class LayoutSingleTableTests : public AccessTest {
-public:
-  std::string loadFromFile(const std::string &path) {
+ public:
+  std::string loadFromFile(const std::string& path) {
     std::ifstream data_file(path.c_str());
     std::string result((std::istreambuf_iterator<char>(data_file)), std::istreambuf_iterator<char>());
     data_file.close();
@@ -36,11 +36,10 @@ TEST_F(LayoutSingleTableTests, basic_layout_single_table_test) {
   s.addFieldName("C");
   s.execute();
 
-  const auto &result = s.getResultTable();
+  const auto& result = s.getResultTable();
 
   ASSERT_EQ(header, result->getValue<std::string>(0, 0));
   ASSERT_EQ(1u, result->size());
 }
-
 }
 }

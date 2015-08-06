@@ -12,9 +12,10 @@ class AbstractConnection;
 
 class RouteRequestHandler : public AbstractRequestHandler {
   static bool registered;
-  AbstractConnection *_connection_data;
+  AbstractConnection* _connection_data;
+
  public:
-  explicit RouteRequestHandler(AbstractConnection *data);
+  explicit RouteRequestHandler(AbstractConnection* data);
   std::string constructResponse();
   void operator()();
   static std::string name();

@@ -1,0 +1,47 @@
+{
+  "operators": {
+    "-1": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/employees_idx.tbl"
+    },
+    "0": {
+      "type": "TableLoad",
+      "table": "employees",
+      "filename": "tables/employees.tbl"
+    },
+    "1": {
+      "type": "CreateGroupkeyIndex",
+      "fields": ["employee_company_id"],
+      "index_name": "mcidx__employees__main__employee_company_id"
+    },
+
+
+    "1_delta": {
+      "type": "CreateDeltaIndex",
+      "fields": ["employee_company_id"],
+      "index_name": "mcidx__employees__delta__employee_company_id"
+    },
+
+    "2": {
+      "type": "IndexAwareTableScan",
+      "tablename" : "employees",
+      "predicates" : [
+        {"type" : "AND"},
+        {"type" : "LTE_V", "in" : 0, "f" : "employee_company_id", "value" : 3},
+        {"type" : "GTE_V", "in" : 0, "f" : "employee_company_id", "value" : 3}
+      ]
+    },
+    "3": {
+      "type" : "NoOp"
+    }
+  },
+  "edges": [
+    ["0", "1"],
+    ["0", "1_delta"],
+
+    ["1", "3"],
+    ["1_delta", "3"],
+
+    ["0", "2"], ["3", "2"]]
+}

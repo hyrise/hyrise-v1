@@ -16,16 +16,15 @@ namespace access {
  * notation.
  */
 class PredicateBuilder {
-  std::stack<CompoundExpression *> previous;
-  SimpleExpression *root;
+  std::stack<CompoundExpression*> previous;
+  SimpleExpression* root;
 
  public:
   PredicateBuilder();
   virtual ~PredicateBuilder();
-  void add(SimpleFieldExpression *exp);
-  void add(CompoundExpression *exp);
-  SimpleExpression *build();
+  void add(SimpleFieldExpression* exp);
+  void add(CompoundExpression* exp);
+  SimpleExpression* build();
 };
-
-} } // namespace hyrise::access
-
+}
+}  // namespace hyrise::access

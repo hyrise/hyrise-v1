@@ -1,6 +1,8 @@
 import subprocess
 import time
 import sys
+import os
+import shutil
 
 from client import Connection
 import requests
@@ -64,11 +66,23 @@ def test_sockets(port, pid):
 
 
 def main():
+
+    # clear test log dir
+    logdir = "./test/log"
+    if (os.path.exists(logdir)):
+        shutil.rmtree(logdir)
+    os.mkdir(logdir)
+    # recreate dummy file
+    open(logdir+"/dummy", 'a').close()
+
     p = None
     if len(sys.argv) == 2:
         binary = sys.argv[-1]
-        p = subprocess.Popen(binary, stdout=devnull)
+        myenv = os.environ.copy()
+        myenv["HYRISE_DB_PATH"] = os.getcwd() + "/test/"
+        p = subprocess.Popen([binary, "--port=0"], env=myenv, stdout=devnull)
         print "Started process", p.pid
+
     time.sleep(1)
     port = int(open("hyrise_server.port").readlines()[0])
     assert port != 0

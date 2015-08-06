@@ -12,12 +12,12 @@ class AbstractConnection;
 class ShutdownHandler : public AbstractRequestHandler {
   static bool registered;
   AbstractConnection* _connection;
+
  public:
   ShutdownHandler(AbstractConnection* c) : _connection(c) {}
   void operator()();
   static std::string name();
   const std::string vname();
 };
-
-}}
-
+}
+}

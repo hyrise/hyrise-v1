@@ -1,0 +1,29 @@
+{
+    "operators": {
+        "-1": {
+          "type": "TableLoad",
+          "filename": "tables/revenue_2009.tbl",
+          "table": "reference"
+        },
+        "0": {
+          "type": "TableLoad",
+          "filename": "tables/revenue.tbl",
+          "table": "revenue"
+        },
+        "1": {
+          "type": "PipelineStream",
+          "chunkSize": 2
+        },
+        "2": {
+          "type": "SimplePipeliningTableScan",
+          "predicates": [
+            {"type" : "EQ_V", "in" : 0, "f" : 0, "value" : 2009}
+          ],
+          "chunkSize": 1
+        },
+        "3": {
+            "type": "PipelineUnion"
+        }
+    },
+    "edges": [["0", "1"], ["1", "2"], ["2", "3"]]
+}

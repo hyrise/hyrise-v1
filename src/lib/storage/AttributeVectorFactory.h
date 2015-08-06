@@ -3,38 +3,32 @@
 
 #include <memory>
 
-#include <storage/BaseAttributeVector.h>
-#include <storage/FixedLengthVector.h>
-#include <storage/BitCompressedVector.h>
+#include "helper/types.h"
+#include "storage/AbstractDictionary.h"
+#include "storage/BaseAttributeVector.h"
 
 namespace hyrise {
 namespace storage {
 
-class AttributeVectorFactory {
-public:
-
-  template <typename T>
-  static std::shared_ptr<BaseAttributeVector<T>> getAttributeVector(size_t columns = 1,
-      size_t rows = 0,
-      int distinct_values = 1,
-  bool compressed = false) {
-
-    return std::make_shared<FixedLengthVector<T> >(columns, rows);
-  }
-
-  template <typename T>
-  static std::shared_ptr<BaseAttributeVector<T>> getAttributeVector2(size_t columns,
-      size_t rows,
-      bool compressed = false,
-  std::vector<uint64_t> bits = std::vector<uint64_t> {}) {
-    if (!compressed) {
-      return std::make_shared<FixedLengthVector<T> >(columns, rows);
-    } else {
-      return std::make_shared<BitCompressedVector<T> >(columns, rows, bits);
-    }
-
-  }
+enum class CONCURRENCY_FLAG {
+  CONCURRENT,
+  NOT_CONCURRENT
+};
+enum class COMPRESSION_FLAG {
+  UNCOMPRESSED,
+  COMPRESSED
 };
 
-} } // namespace hyrise::storage
+using baseattr_ptr_tr = std::shared_ptr<BaseAttributeVector<value_id_t>>;
 
+baseattr_ptr_tr create_compressed_attribute_vector(size_t cols, size_t rows, std::vector<adict_ptr_t>& dicts);
+
+
+/// Use this function to obtain an attribute vector
+baseattr_ptr_tr create_attribute_vector(size_t cols,
+                                        size_t rows,
+                                        CONCURRENCY_FLAG concurrent,
+                                        COMPRESSION_FLAG compressed,
+                                        std::vector<adict_ptr_t>& dicts);
+}
+}  // namespace hyrise::storage

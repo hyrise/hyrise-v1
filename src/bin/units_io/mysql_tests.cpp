@@ -19,60 +19,45 @@ class MySQLTests : public ::hyrise::Test {
     _pid_suffix = std::to_string(getpid());
     _schema = "cbtr" + _pid_suffix;
     std::string cmd = "sh test/sap_data/load.sh " + _pid_suffix;
-    system(cmd.c_str());
+    if (system(cmd.c_str()) != 0) {
+      throw std::runtime_error(cmd + " _failed");
+    };
   }
 
   virtual void TearDown() override {
     std::string cmd = "sh test/sap_data/drop.sh " + _pid_suffix;
-    system(cmd.c_str());
+    if (system(cmd.c_str()) != 0) {
+      throw std::runtime_error(cmd + " _failed");
+    };
   }
 };
 
-TEST(MySQLTestsBase, load_test) {
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-      Loader::params().setInput(
-          MySQLInput(
-              MySQLInput::params()
-              .setSchema("information_schema")
-              .setTable("TABLES")
-                     )
-                                )
-                                                  );
+TEST(MySQLTestsBase, DISABLED_load_test) {
+  hyrise::storage::atable_ptr_t t = Loader::load(
+      Loader::params().setInput(MySQLInput(MySQLInput::params().setSchema("information_schema").setTable("TABLES"))));
 }
 
 
-TEST_F(MySQLTests, load_sap_schema) {
+TEST_F(MySQLTests, DISABLED_load_sap_schema) {
   // Load SAP base schema, import KNA1, VBAP, VBAK into MySQL
 
-  std::vector<const char *> tables { "KNA1", "VBAP", "VBAK"};
+  std::vector<const char*> tables{"KNA1", "VBAP", "VBAK"};
 
-  for(std::string table: tables) {
-    hyrise::storage::atable_ptr_t  t = Loader::load(
-        Loader::params().setInput(
-            MySQLInput(
-                MySQLInput::params()
-                .setSchema(_schema)
-                .setTable(table)
-                       )
-                                  )
-                                                    );
+  for (std::string table : tables) {
+    hyrise::storage::atable_ptr_t t =
+        Loader::load(Loader::params().setInput(MySQLInput(MySQLInput::params().setSchema(_schema).setTable(table))));
     ASSERT_EQ(t->size(), 5u) << table << " should have 5 entries";
   }
 }
 
-TEST_F(MySQLTests, convert_date_to_int) {
+TEST_F(MySQLTests, DISABLED_convert_date_to_int) {
   // Load SAP base schema, import KNA1, VBAP, VBAK into MySQL
-  hyrise::storage::atable_ptr_t  t = Loader::load(
-      Loader::params().setInput(
-          MySQLInput(
-              MySQLInput::params()
-              .setSchema(_schema)
-              .setTable("VBAK")
-                     )));
+  hyrise::storage::atable_ptr_t t =
+      Loader::load(Loader::params().setInput(MySQLInput(MySQLInput::params().setSchema(_schema).setTable("VBAK"))));
   ASSERT_EQ(IntegerType, t->typeOfColumn(2));
   ASSERT_EQ(IntegerType, t->typeOfColumn(5));
 }
-
-} } // namespace hyrise::io
+}
+}  // namespace hyrise::io
 
 #endif

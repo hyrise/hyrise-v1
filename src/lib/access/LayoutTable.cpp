@@ -11,14 +11,12 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<LayoutTable>("LayoutTable");
+auto _ = QueryParser::registerPlanOperation<LayoutTable>("LayoutTable");
 }
 
-LayoutTable::LayoutTable(const std::string &layout) : _layout(layout) {
-}
+LayoutTable::LayoutTable(const std::string& layout) : _layout(layout) {}
 
-LayoutTable::~LayoutTable() {
-}
+LayoutTable::~LayoutTable() {}
 
 void LayoutTable::executePlanOperation() {
   auto store = std::dynamic_pointer_cast<const storage::Store>(input.getTable());
@@ -29,8 +27,8 @@ void LayoutTable::executePlanOperation() {
   auto dest = createEmptyLayoutedTable(_layout);
 
   // Add all table to the game
-  std::vector<storage::c_atable_ptr_t> tables { main, store->getDeltaTable() };
-  
+  std::vector<storage::c_atable_ptr_t> tables{main, store->getDeltaTable()};
+
   // Call the Merge
   storage::TableMerger merger(new storage::DefaultMergeStrategy(), new storage::SequentialHeapMerger());
 
@@ -41,15 +39,13 @@ void LayoutTable::executePlanOperation() {
   output.add(result);
 }
 
-std::shared_ptr<PlanOperation> LayoutTable::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> LayoutTable::parse(const Json::Value& data) {
   return std::make_shared<LayoutTable>(data["layout"].asString());
 }
 
-const std::string LayoutTable::vname() {
-  return "LayoutTable";
-}
+const std::string LayoutTable::vname() { return "LayoutTable"; }
 
-storage::atable_ptr_t LayoutTable::createEmptyLayoutedTable(const std::string &layout) const {
+storage::atable_ptr_t LayoutTable::createEmptyLayoutedTable(const std::string& layout) const {
   // Prepare the new table by defining an empty input and load the
   // partitioning for the table from the string header
   io::EmptyInput input;
@@ -62,6 +58,5 @@ storage::atable_ptr_t LayoutTable::createEmptyLayoutedTable(const std::string &l
   p.setReferenceTable(this->input.getTable());
   return io::Loader::load(p);
 }
-
 }
 }

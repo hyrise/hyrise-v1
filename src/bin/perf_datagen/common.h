@@ -124,11 +124,11 @@ struct table_cardinality_t {
 
 /* Prototypes */
 double difftimeval(struct timeval rt1, struct timeval rt0);
-int edump(int type, void *data);
-void get_a_string(char *a_string, int x, int y);
-int get_c_last(char *c_last, int i);
-void get_l_string(char *l_string, int x, int y);
-void get_n_string(char *n_string, int x, int y);
+int edump(int type, void* data);
+void get_a_string(char* a_string, int x, int y);
+int get_c_last(char* c_last, int i);
+void get_l_string(char* l_string, int x, int y);
+void get_n_string(char* n_string, int x, int y);
 int get_nurand(int a, int x, int y);
 double get_percentage();
 int get_random(int max);
@@ -137,9 +137,9 @@ int init_common();
 int create_pid_file();
 
 extern char output_path[256];
-extern const char *c_last_syl[C_LAST_SYL_MAX];
+extern const char* c_last_syl[C_LAST_SYL_MAX];
 extern struct table_cardinality_t table_cardinality;
 extern const char transaction_short_name[TRANSACTION_MAX];
-extern const char *transaction_name[TRANSACTION_MAX];
+extern const char* transaction_name[TRANSACTION_MAX];
 
 #endif  // SRC_BIN_PERF_DATAGEN_COMMON_H_

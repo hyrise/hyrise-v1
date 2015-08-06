@@ -9,14 +9,14 @@ namespace hyrise {
 namespace access {
 
 namespace {
-  auto _ = QueryParser::registerPlanOperation<SpawnConsecutiveSubtasks>("SpawnConsecutiveSubtasks");
+auto _ = QueryParser::registerPlanOperation<SpawnConsecutiveSubtasks>("SpawnConsecutiveSubtasks");
 }
 
 void SpawnConsecutiveSubtasks::executePlanOperation() {
   std::vector<std::shared_ptr<PlanOperation>> children;
   std::vector<std::shared_ptr<Task>> successors;
   auto scheduler = taskscheduler::SharedScheduler::getInstance().getScheduler();
-  
+
   {
     std::lock_guard<decltype(_observerMutex)> lk(_observerMutex);
     for (const auto& weakDoneObserver : _doneObservers) {
@@ -27,14 +27,14 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
       }
     }
   }
-  
+
   for (size_t i = 0; i < m_numberOfSpawns; ++i) {
     children.push_back(QueryParser::instance().parse("SpawnedTask", Json::Value()));
 
     if (i != 0)
-      children[i]->addDependency(children[i-1]);
+      children[i]->addDependency(children[i - 1]);
   }
-    
+
   for (auto successor : successors)
     successor->addDependency(children.back());
 
@@ -44,20 +44,14 @@ void SpawnConsecutiveSubtasks::executePlanOperation() {
   }
 }
 
-void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) {
-  m_numberOfSpawns = number;
-}
+void SpawnConsecutiveSubtasks::setNumberOfSpawns(const size_t number) { m_numberOfSpawns = number; }
 
-std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(const Json::Value &data) {
+std::shared_ptr<PlanOperation> SpawnConsecutiveSubtasks::parse(const Json::Value& data) {
   auto planOp = std::make_shared<SpawnConsecutiveSubtasks>();
   planOp->setNumberOfSpawns(data["amount"].asInt());
   return planOp;
 }
 
-const std::string SpawnConsecutiveSubtasks::vname() {
-  return "SpawnConsecutiveSubtasks";
-}
-
+const std::string SpawnConsecutiveSubtasks::vname() { return "SpawnConsecutiveSubtasks"; }
 }
 }
-

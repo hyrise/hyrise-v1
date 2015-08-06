@@ -1,0 +1,63 @@
+{
+  "operators": {
+    "-1": {
+      "type": "TableLoad",
+      "table": "reference",
+      "filename": "tables/employees_idx_with_delta.tbl"
+    },
+
+
+    "load": {
+      "type": "TableLoad",
+      "table": "employees",
+      "filename": "tables/employees.tbl"
+    },
+
+    "create_idx": {
+      "type": "CreateGroupkeyIndex",
+      "fields": ["employee_company_id"],
+      "index_name": "mcidx__employees__main__employee_company_id"
+    },
+    "create_idx_delta": {
+      "type": "CreateDeltaIndex",
+      "fields": ["employee_company_id"],
+      "index_name": "mcidx__employees__delta__employee_company_id"
+    },
+
+    "nop": {
+      "type": "NoOp"
+    },
+
+    "create_idx_delta": {
+      "type": "CreateDeltaIndex",
+      "fields": ["employee_company_id"],
+      "index_name": "mcidx__employees__delta__employee_company_id"
+    },
+
+    "insert" : {
+        "type" : "InsertScan",
+        "data" : [
+            [7,3,"Franz Faerber"],
+            [8,1,"Jan Oberst"]
+        ]
+    },
+
+    "scan": {
+      "type": "IndexAwareTableScan",
+      "tablename" : "employees",
+      "predicates" : [
+        {"type" : "EQ_V", "in" : 0, "f" : "employee_company_id", "value" : 3}
+      ]
+    }
+  },
+  "edges": [
+    ["load", "create_idx"],
+    ["load", "create_idx_delta"],
+    ["create_idx", "nop"],
+    ["create_idx_delta", "nop"],
+    ["load", "insert"],
+    ["nop", "insert"],
+    ["insert", "scan"]
+  ]
+  // ["1", "3"], ["0", "2"], ["3", "2"]]
+}

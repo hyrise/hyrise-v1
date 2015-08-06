@@ -10,10 +10,8 @@
 #include "access/NoOp.h"
 
 #include "taskscheduler/SharedScheduler.h"
-#include "taskscheduler/CoreBoundQueuesScheduler.h"
-#include "taskscheduler/WSCoreBoundQueuesScheduler.h"
-#include "taskscheduler/ThreadPerTaskScheduler.h"
-#include "taskscheduler/DynamicPriorityScheduler.h"
+#include "taskscheduler/ThreadLevelQueuesScheduler.h"
+#include "taskscheduler/WSThreadLevelQueuesScheduler.h"
 
 #include "helper/HwlocHelper.h"
 
@@ -28,39 +26,34 @@ using ::testing::ValuesIn;
 
 // list schedulers to be tested
 std::vector<std::string> getSchedulersToTest() {
- return {"WSCoreBoundQueuesScheduler",
-           "CoreBoundQueuesScheduler",
-           "CentralScheduler",
-           "CentralPriorityScheduler",
-           "CoreBoundPriorityQueuesScheduler",
-           "WSCoreBoundPriorityQueuesScheduler",
-           "ThreadPerTaskScheduler",
-           "DynamicPriorityScheduler"};
+  return {
+      "WSThreadLevelQueuesScheduler",     "ThreadLevelQueuesScheduler",           "CoreBoundQueuesScheduler",
+      "WSCoreBoundQueuesScheduler",       "WSThreadLevelPriorityQueuesScheduler", "ThreadLevelPriorityQueuesScheduler",
+      "CoreBoundPriorityQueuesScheduler", "WSCoreBoundPriorityQueuesScheduler",   "CentralScheduler",
+      "CentralPriorityScheduler",         "ThreadPerTaskScheduler",               "DynamicPriorityScheduler",
+      "DynamicScheduler",                 "NodeBoundQueuesScheduler",             "WSNodeBoundQueuesScheduler",
+      "NodeBoundPriorityQueuesScheduler", "WSNodeBoundPriorityQueuesScheduler"};
 }
 
 class SchedulerTest : public TestWithParam<std::string> {
  public:
-  virtual void SetUp() {
-    scheduler_name = GetParam();
-  }
+  virtual void SetUp() { scheduler_name = GetParam(); }
 
  protected:
   std::string scheduler_name;
 };
 
-INSTANTIATE_TEST_CASE_P(
-    Scheduler,
-    SchedulerTest,
-    ValuesIn(getSchedulersToTest()));
+INSTANTIATE_TEST_CASE_P(Scheduler, SchedulerTest, ValuesIn(getSchedulersToTest()));
 
 TEST_P(SchedulerTest, setScheduler) {
-  SharedScheduler::getInstance().resetScheduler("CoreBoundQueuesScheduler");
+  SharedScheduler::getInstance().resetScheduler("ThreadLevelQueuesScheduler");
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
-  std::shared_ptr<CoreBoundQueuesScheduler> simple_task_scheduler = std::dynamic_pointer_cast<CoreBoundQueuesScheduler>(scheduler);
+  std::shared_ptr<ThreadLevelBasicQueuesScheduler> simple_task_scheduler =
+      std::dynamic_pointer_cast<ThreadLevelBasicQueuesScheduler>(scheduler);
   bool test = (simple_task_scheduler == NULL);
   ASSERT_EQ(test, false);
 
-  SharedScheduler::getInstance().resetScheduler(scheduler_name, getNumberOfCoresOnSystem());
+  SharedScheduler::getInstance().resetScheduler(scheduler_name);
 }
 
 TEST_P(SchedulerTest, wait_task_test) {
@@ -90,7 +83,7 @@ TEST_P(SchedulerTest, sync_task_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
-  //scheduler->resize(2);
+  // scheduler->resize(2);
 
   auto nop1 = std::make_shared<access::NoOp>();
   auto nop2 = std::make_shared<access::NoOp>();
@@ -116,7 +109,7 @@ TEST_P(SchedulerTest, million_dependencies_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
-  //scheduler->resize(threads1);
+  // scheduler->resize(threads1);
 
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
 
@@ -144,14 +137,14 @@ TEST_P(SchedulerTest, million_dependencies_test) {
 
 TEST_P(SchedulerTest, million_noops_test) {
 #ifdef EXPENSIVE_TESTS
-  //chaned to 10.000, 1.000.000 takes too long on small computers
+  // chaned to 10.000, 1.000.000 takes too long on small computers
   int tasks_group1 = 10000;
   std::vector<std::shared_ptr<access::NoOp> > vtasks1;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
-  //scheduler->resize(threads1);
+  // scheduler->resize(threads1);
 
   std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
 
@@ -170,7 +163,7 @@ TEST_P(SchedulerTest, wait_dependency_task_test) {
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
   const auto& scheduler = SharedScheduler::getInstance().getScheduler();
 
-  //scheduler->resize(2);
+  // scheduler->resize(2);
   auto nop = std::make_shared<access::NoOp>();
   auto waiter = std::make_shared<WaitTask>();
   waiter->addDependency(nop);
@@ -180,9 +173,9 @@ TEST_P(SchedulerTest, wait_dependency_task_test) {
 }
 
 TEST_P(SchedulerTest, wait_set_test) {
-  //int threads1 = 4;
+  // int threads1 = 4;
   int tasks = 100;
-  //in microseconds
+  // in microseconds
   int sleeptime = 50;
 
   SharedScheduler::getInstance().resetScheduler(scheduler_name);
@@ -204,66 +197,88 @@ TEST_P(SchedulerTest, wait_set_test) {
 }
 #endif
 
-bool long_block_test(AbstractTaskScheduler * scheduler){
-    int threads1 = 2;
+bool long_block_test(AbstractTaskScheduler* scheduler) {
+  int threads1 = 2;
 
-    int longSleepTasks = 1;
-    int longSleepTime = 100000;
-    int shortSleepTasks = 10;
-    int shortSleepTime = 10000;
-    int waittime = shortSleepTime;
+  int longSleepTasks = 1;
+  int longSleepTime = 100000;
+  int shortSleepTasks = 10;
+  int shortSleepTime = 10000;
+  int waittime = shortSleepTime;
 
-    int upperLimit = longSleepTime / 1000 + (shortSleepTime * shortSleepTasks / (threads1 * 1000)) + waittime/1000;
+  int upperLimit = longSleepTime / 1000 + (shortSleepTime * shortSleepTasks / (threads1 * 1000)) + waittime / 1000;
 
-    std::vector<std::shared_ptr<SleepTask> > longTasks;
-    std::vector<std::shared_ptr<SleepTask> > shortTasks;
-    std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
+  std::vector<std::shared_ptr<SleepTask> > longTasks;
+  std::vector<std::shared_ptr<SleepTask> > shortTasks;
+  std::shared_ptr<WaitTask> waiter = std::make_shared<WaitTask>();
 
-    for (int i = 0; i < longSleepTasks; ++i) {
-      longTasks.push_back(std::make_shared<SleepTask>(longSleepTime));
-      waiter->addDependency(longTasks[i]);
-    }
+  for (int i = 0; i < longSleepTasks; ++i) {
+    longTasks.push_back(std::make_shared<SleepTask>(longSleepTime));
+    waiter->addDependency(longTasks[i]);
+  }
 
-    for (int i = 0; i < shortSleepTasks; ++i) {
-      shortTasks.push_back(std::make_shared<SleepTask>(shortSleepTime));
-      waiter->addDependency(shortTasks[i]);
-    }
+  for (int i = 0; i < shortSleepTasks; ++i) {
+    shortTasks.push_back(std::make_shared<SleepTask>(shortSleepTime));
+    waiter->addDependency(shortTasks[i]);
+  }
 
-    long int start, finish;
-    start = getTimeInMillis();
+  long int start, finish;
+  start = getTimeInMillis();
 
-    for (int i = 0; i < longSleepTasks; ++i) {
-      scheduler->schedule(longTasks[i]);
-    }
+  for (int i = 0; i < longSleepTasks; ++i) {
+    scheduler->schedule(longTasks[i]);
+  }
 
-    // wait until long Task has started
-    usleep(waittime);
+  // wait until long Task has started
+  usleep(waittime);
 
-    //usleep(shortSleepTime);
-    for (int i = 0; i < shortSleepTasks; ++i) {
-      scheduler->schedule(shortTasks[i]);
-    }
-    scheduler->schedule(waiter);
-    waiter->wait();
-    //TBD
-    finish = getTimeInMillis();
-    long int diff = finish - start;
-    return (diff < upperLimit);
+  // usleep(shortSleepTime);
+  for (int i = 0; i < shortSleepTasks; ++i) {
+    scheduler->schedule(shortTasks[i]);
+  }
+  scheduler->schedule(waiter);
+  waiter->wait();
+  // TBD
+  finish = getTimeInMillis();
+  long int diff = finish - start;
+  return (diff < upperLimit);
 }
 
 TEST(SchedulerBlockTest, dont_block_test) {
   /* we assign a long running task and a number of smaller tasks with a think time to the queues -
      the scheduler should realize that one queue is blocked and assign tasks to other queues */
-  auto scheduler = std::make_shared<CoreBoundQueuesScheduler>(2);
+  auto scheduler = std::make_shared<ThreadLevelBasicQueuesScheduler>(2);
+  scheduler->init();
   // These test currently just check for execute
   long_block_test(scheduler.get());
+
+  scheduler->shutdown();
 }
 
 TEST(SchedulerBlockTest, dont_block_test_with_work_stealing) {
   /*  steal work from that queue */
-  auto scheduler = std::make_shared<WSCoreBoundQueuesScheduler>(2);
-  long_block_test(scheduler.get());
+  auto scheduler = std::make_shared<WSThreadLevelBasicQueuesScheduler>(2);
+  scheduler->init();
+  bool test = long_block_test(scheduler.get());
+  ASSERT_EQ(test, true);
+  scheduler->shutdown();
 }
 
-} } // namespace hyrise::taskscheduler
+class DynamicDummyTask : public Task {
+ public:
+  virtual const std::string vname() { return "DynamicDummyTask"; }
 
+ protected:
+  bool _dynamic = true;
+};
+
+// Test assures that the default MTS value of 0
+// results in a degree of 1. This ensures that applyDynamicParallelization
+// will work properly.
+TEST(DynamicParallelization, mts_0_results_in_degree_1) {
+  DynamicDummyTask task;
+  DynamicCount single{1, 1, 1, 1};
+  ASSERT_EQ(task.determineDynamicCount(0), single);
+}
+}
+}  // namespace hyrise::taskscheduler

@@ -145,5 +145,3 @@ void prefetch_stream(int cpu) {
   uint64_t value = 0x4462840089;
   write_prefetch(cpu, value);
 }
-
-
