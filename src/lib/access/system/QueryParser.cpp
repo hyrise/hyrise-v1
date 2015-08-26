@@ -81,10 +81,10 @@ void QueryParser::setDependencies(const Json::Value& query, task_map_t& task_map
   for (unsigned i = 0; i < query["edges"].size(); ++i) {
     Json::Value currentEdge = query["edges"][i];
     if (task_map.count(currentEdge[0u].asString()) == 0)
-      throw std::runtime_error("Edege with operator name " + currentEdge[0u].asString() + " not found");
+      throw std::runtime_error("Edge with operator name " + currentEdge[0u].asString() + " not found");
 
     if (task_map.count(currentEdge[1u].asString()) == 0)
-      throw std::runtime_error("Edege with operator name " + currentEdge[1u].asString() + " not found");
+      throw std::runtime_error("Edge with operator name " + currentEdge[1u].asString() + " not found");
 
     auto src = task_map[currentEdge[0u].asString()];
     auto dst = task_map[currentEdge[1u].asString()];
