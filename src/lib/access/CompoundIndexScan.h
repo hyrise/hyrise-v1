@@ -60,21 +60,23 @@ class CompoundIndexScan : public PlanOperation {
             "Column mismatch - please specify columns for main index in the order in which they were created");
       }
 
-      auto deb = input.getTables()[0]->dictionaryAt(column);
-      value_id_t value_id;
-      size_t size;
+      if (!_no_hits_in_main) {
+        auto deb = input.getTables()[0]->dictionaryAt(column);
+        value_id_t value_id;
+        size_t size;
 
-      auto main_dict =
-          checked_pointer_cast<storage::OrderPreservingDictionary<T>>(input.getTables()[0]->dictionaryAt(column));
-      value_id = main_dict->findValueIdForValue(value);
-      size = main_dict->size();
-      // if this checked cast fails, check if you passed the right T (e.g., hyrise_int_t instead of int)
+        auto main_dict =
+            checked_pointer_cast<storage::OrderPreservingDictionary<T>>(input.getTables()[0]->dictionaryAt(column));
+        value_id = main_dict->findValueIdForValue(value);
+        size = main_dict->size();
+        // if this checked cast fails, check if you passed the right T (e.g., hyrise_int_t instead of int)
 
-      if (value_id == std::numeric_limits<value_id_t>::max()) {
-        // if we can't find a value id for this value, it won't be in the main
-        _main_index = nullptr;
-      } else {
-        _valueid_key_builder.add(value_id, size);
+        if (value_id == std::numeric_limits<value_id_t>::max()) {
+          // if we can't find a value id for this value, there will be no hit in the main
+          _no_hits_in_main = true;
+        } else {
+          _valueid_key_builder.add(value_id, size);
+        }
       }
     }
 
@@ -118,6 +120,7 @@ class CompoundIndexScan : public PlanOperation {
   Json::Value _json_predicates;
   bool _validate = false;
   bool _unique_index = false;
+  bool _no_hits_in_main = false;
 
   unsigned int _predicates_added_delta;
   unsigned int _predicates_added_main;
