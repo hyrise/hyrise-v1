@@ -1300,7 +1300,7 @@ std::vector<std::vector<set_subset_t> > DivideAndConquerLayouter::partitionGraph
                                 t.adjncy,
                                 nullptr,  // vertices weight
                                 nullptr,  // vertices size
-                                t.adjwgt,  // edege weight
+                                t.adjwgt,  // edge weight
                                 &nparts,  // number of parts to partition
                                 nullptr,  // targeted partition weight
                                 nullptr,  // ubvec, load imbalance bla bla
