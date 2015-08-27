@@ -46,9 +46,12 @@ void CompoundIndexScan::executePlanOperation() {
         throw std::runtime_error(
             "Incomplete predicate set specified - Partial Search only Implemeted for Validating-IndexScan");
       }
-      storage::PositionRange main_result = _main_index->getPositionsForKey(_valueid_key_builder.get());
-      result->resize(main_result.size());
-      std::copy(main_result.cbegin(), main_result.cend(), result->begin());
+
+      if (!_no_hits_in_main) {
+        storage::PositionRange main_result = _main_index->getPositionsForKey(_valueid_key_builder.get());
+        result->resize(main_result.size());
+        std::copy(main_result.cbegin(), main_result.cend(), result->begin());
+      }
     }
 
     if (_delta_index) {
@@ -152,9 +155,11 @@ void CompoundIndexScan::executePlanOperation() {
         // note: can this break if the largest value id is a power of two?
 
       } else {
-        storage::PositionRange main_result = _main_index->getPositionsForKey(_valueid_key_builder.get());
-        result->resize(main_result.size());
-        std::copy(main_result.cbegin(), main_result.cend(), result->begin());
+        if (!_no_hits_in_main) {
+          storage::PositionRange main_result = _main_index->getPositionsForKey(_valueid_key_builder.get());
+          result->resize(main_result.size());
+          std::copy(main_result.cbegin(), main_result.cend(), result->begin());
+        }
       }
       c_store->validatePositions(*result, _txContext.lastCid, _txContext.tid);
     }

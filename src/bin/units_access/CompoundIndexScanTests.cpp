@@ -184,5 +184,16 @@ TEST_F(CompoundIndexScanTests, not_all_columns) {
   ASSERT_THROW(is.execute(), std::runtime_error);
 }
 
+TEST_F(CompoundIndexScanTests, two_ints_both_not_in_dictionary) {
+  CompoundIndexScan is;
+  is.addInput(t);
+  is.setMainIndex("test_main_idx_0_and_3");
+  is.addPredicate(0, (hyrise_int_t)123456);
+  is.addPredicate(3, (hyrise_int_t)123456);
+  is.execute();
+  auto result = is.getResultTable();
+  ASSERT_EQ(result->size(), 0);
+}
+
 }  // namespace access
 }  // namespace hyrise
