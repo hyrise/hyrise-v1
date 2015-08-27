@@ -124,7 +124,7 @@ Your response from the server should look something like this::
     
     ``"duration":`` refers to actual clock cycles required to run the operation.
     
-    ``"startTime":`` and ``"endTime":`` give the start and end time of the operation in nanoseconds.
+    ``"startTime":`` and ``"endTime":`` give the start and end time of the operation in milliseconds.
     
     ``"papi_event":`` specifies which Papi Event was used to measure performance.
     
