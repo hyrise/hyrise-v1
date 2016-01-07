@@ -6,6 +6,7 @@
 #include <io/EmptyLoader.h>
 #include <io/Loader.h>
 #include <io/shortcuts.h>
+#include <io/StorageManager.h>
 #include <io/TableDump.h>
 
 #include <storage/Store.h>
@@ -44,7 +45,8 @@ void LoadDumpedTable::executePlanOperation() {
   io::CSVHeader header(Settings::getInstance()->getDBPath() + "/" + _name + "/header.dat",
                        io::CSVHeader::params().setCSVParams(io::csv::HYRISE_FORMAT));
 
-  auto t = io::Loader::load(io::Loader::params().setInput(input).setHeader(header));
+  auto t = io::Loader::load(io::Loader::params().setInput(input).setHeader(header).setTableName(_name));
+  io::StorageManager::getInstance()->add(_name, t);
   addResult(checked_pointer_cast<storage::Store>(t));
 }
 
