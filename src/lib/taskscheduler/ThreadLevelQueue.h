@@ -37,7 +37,13 @@ class ThreadLevelQueue : public AbstractTaskScheduler,
   std::condition_variable_any _queuecheck;
 
  public:
-  ThreadLevelQueue(size_t threads) : _threadCount(threads), _status(START_UP), _blocked(false) {}
+  ThreadLevelQueue(size_t threads) : _status(START_UP), _blocked(false) {
+    if (threads > 0) {
+      _threadCount = threads;
+    } else {
+      _threadCount = 1;
+    }
+  }
   virtual ~ThreadLevelQueue() {
     if (_status != STOPPED)
       shutdown();
