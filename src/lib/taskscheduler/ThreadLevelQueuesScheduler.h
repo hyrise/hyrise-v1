@@ -56,7 +56,13 @@ class ThreadLevelQueuesScheduler : public AbstractTaskScheduler,
   }
 
  public:
-  ThreadLevelQueuesScheduler(int queues) : _queueCount(queues), _nextQueue(0), _status(START_UP) {};
+  ThreadLevelQueuesScheduler(int queues) : _nextQueue(0), _status(START_UP) {
+    if (queues > 0) {
+      _queueCount = queues;
+    } else {
+      _queueCount = 1;
+    }
+  };
   ~ThreadLevelQueuesScheduler() { shutdown(); }
 
   /*
