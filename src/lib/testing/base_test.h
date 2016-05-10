@@ -3,12 +3,16 @@
 
 #include <gtest/gtest.h>
 
+#include <io/ResourceManager.h>
+
 namespace hyrise {
 
 class Test : public ::testing::Test {
  public:
   virtual ~Test() {};
-  virtual void SetUp() {}
+  virtual void SetUp() {
+    io::ResourceManager::getInstance().clear();
+  }
   virtual void TearDown() {}
 };
 

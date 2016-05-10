@@ -35,7 +35,7 @@ class SimpleTableScanBase : public ::testing::Benchmark {
 
   void BenchmarkTearDown() override { delete ts; }
 
-  void TearDown() override { sm->clear(); }
+  void TearDown() override {}
 
   SimpleTableScanBase() {
     SetNumIterations(10);
@@ -129,7 +129,7 @@ class AdhocScanBench : public ::testing::Benchmark {
   }
   void BenchmarkSetup() {}
 
-  void TearDown() { sm->clear(); }
+  void TearDown() {}
 
   AdhocScanBench() {
     SetNumIterations(10);

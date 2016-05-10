@@ -16,8 +16,6 @@ class StorageManagerTests : public ::hyrise::Test {
  public:
   StorageManagerTests() { sm = StorageManager::getInstance(); }
 
-  virtual void SetUp() { sm->removeAll(); }
-
   StorageManager* sm;
 };
 
