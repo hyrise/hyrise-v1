@@ -28,7 +28,7 @@ void TpccStoredProceduresTest::SetUp() {
   i_history_size = getTable(History)->size();
 }
 
-void TpccStoredProceduresTest::TearDown() { io::ResourceManager::getInstance().clear(); }
+void TpccStoredProceduresTest::TearDown() {}
 
 void TpccStoredProceduresTest::loadTables() { executeJsonAndWait(loadFromFile("test/tpcc/load_tpcc_tables.json")); }
 

@@ -38,21 +38,11 @@ template <typename It1, typename It2>
 
 
 class StorageManagerTest : public Test {
- public:
-  virtual ~StorageManagerTest() {};
-
-  virtual void SetUp() { io::ResourceManager::getInstance().clear(); }
-
-  virtual void TearDown() {}
 };
 
 namespace access {
 
 class AccessTest : public Test {
- public:
-  virtual void SetUp() { io::ResourceManager::getInstance().clear(); }
-
-  virtual void TearDown() {}
 };
 
 }  // namespace access
