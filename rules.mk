@@ -173,6 +173,10 @@ ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
 endif
 
+ifeq ($(shell uname -p), ppc64le)
+	COMMON_FLAGS += -D NO_PREFETCHING
+endif
+
 include $(PROJECT_ROOT)/makefiles/config.$(COMPILER).mk
 include $(PLUGINS:%=$(PROJECT_ROOT)/mkplugins/%.mk)
 
@@ -193,7 +197,7 @@ LDFLAGS.release +=
 
 COMMON_FLAGS.debug += -O0
 COMMON_FLAGS.release += -O3
-COMMON_FLAGS += -ggdb -march=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS += -ggdb -mtune=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
 CPPFLAGS += -MMD -MP -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))

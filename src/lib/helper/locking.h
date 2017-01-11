@@ -1,10 +1,11 @@
 #pragma once
 
 #include <pthread.h>
-#include <immintrin.h>
 
 #include <thread>
 #include <atomic>
+
+#include "helper/arch_compat.h"
 
 namespace hyrise {
 namespace locking {
@@ -22,7 +23,7 @@ class Spinlock {
 
   inline void lock() {
     while (!try_lock()) {
-      _mm_pause();  // helps the cpu to detect busy-wait loop
+      PAUSE();  // helps the cpu to detect busy-wait loop
     }
   }
 
