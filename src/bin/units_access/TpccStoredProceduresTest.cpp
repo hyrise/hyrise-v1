@@ -15,6 +15,7 @@ namespace hyrise {
 namespace access {
 
 void TpccStoredProceduresTest::SetUp() {
+  io::ResourceManager::getInstance().clear();
   loadTables();
 
   i_customer_size = getTable(Customer)->size();
