@@ -485,6 +485,14 @@ BufferedLogger::BufferedLogger() {
 void BufferedLogger::truncate() {
   // clears all logs and checkpoints
   _checkpoint_id = 0;
+
+  _fileMutex.lock();
+  if(_logfile) {
+    fclose(_logfile);
+    _logfile = NULL;
+  }
+  _fileMutex.unlock();
+
   boost::filesystem::remove_all(Settings::getInstance()->getLogDir());
   boost::filesystem::remove_all(Settings::getInstance()->getCheckpointDir());
   boost::filesystem::remove_all(Settings::getInstance()->getTableDumpDir());
