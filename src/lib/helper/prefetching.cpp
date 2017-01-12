@@ -3,6 +3,7 @@
 
 #ifndef NO_PREFETCHING
 #include <asm/msr.h>
+#include <asm/msr-index.h>
 #include <sched.h>
 #endif
 
