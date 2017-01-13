@@ -2,6 +2,7 @@
 #include "storage/HorizontalTable.h"
 
 #include <algorithm>
+#include <numeric>
 #include <cassert>
 #include <iostream>
 #include <iterator>

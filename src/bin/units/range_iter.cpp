@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 
 #include <algorithm>
+#include <numeric>
 
 #include "helper/RangeIter.h"
 

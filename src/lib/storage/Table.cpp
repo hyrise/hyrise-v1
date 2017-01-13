@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 #include "storage/AttributeVectorFactory.h"
 #include "storage/DictionaryFactory.h"
 #include "storage/ValueIdMap.hpp"

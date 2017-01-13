@@ -2,6 +2,7 @@
 #include "access/system/PlanOperation.h"
 
 #include <algorithm>
+#include <numeric>
 #include <thread>
 
 #include "access/system/ResponseTask.h"

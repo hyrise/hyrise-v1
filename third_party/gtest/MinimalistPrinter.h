@@ -3,6 +3,7 @@
 #define SRC_LIB_TESTING_MINIMALISTPRINTER_H_
 
 #include <memory>
+#include <numeric>
 
 #include "gtest.h"
 

@@ -14,6 +14,8 @@
 #include "access/UnionAll.h"
 #include "access/system/ResponseTask.h"
 
+#include <cmath>
+
 namespace hyrise {
 namespace access {
 

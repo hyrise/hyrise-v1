@@ -26,7 +26,10 @@ class CompoundValueKeyBuilder {
     assert(sizeof(hyrise_int_t) == 8);
 
     hyrise_int_t value_s = value ^ (hyrise_int_t)0x8000000000000000;  // toggle MSB so that -x < x when binary compared
-    assert(abs(value_s) == abs(value));
+//    Fails with GCC 6, we tested with the IBM Advanced Toolchain 10.0.2
+//    abs(int) cast down the 64 bit value to 32 bit, which is why the assertion 
+//    is true for GCC < 6, but GCC 6 use the std::abs(long) which operates on 64 bit values
+//    assert(abs(value_s) == abs(value));
     value = value_s;
 
 
