@@ -195,9 +195,15 @@ CXXFLAGS.release +=
 LDFLAGS.debug +=
 LDFLAGS.release +=
 
+ifeq ($(shell uname -p), ppc64le)
+	CPU_ARCH_FLAGS = -mcpu=native -mtune=native
+else
+	CPU_ARCH_FLAGS = -march=native
+endif
+
 COMMON_FLAGS.debug += -O0
 COMMON_FLAGS.release += -O3
-COMMON_FLAGS += -ggdb -mtune=native -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
+COMMON_FLAGS += -ggdb $(CPU_ARCH_FLAGS) -Wall -Wextra -Wno-attributes -Wno-unused-parameter -pthread $(COMMON_FLAGS.$(BLD))
 
 CPPFLAGS += -MMD -MP -pipe $(CPPFLAGS.$(BLD))
 CFLAGS += $(COMMON_FLAGS) $(CFLAGS.$(BLD))
