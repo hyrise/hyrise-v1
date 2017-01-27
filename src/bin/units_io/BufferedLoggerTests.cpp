@@ -25,7 +25,11 @@
 namespace hyrise {
 namespace io {
 
-class BufferedLoggerTests : public ::hyrise::Test {};
+class BufferedLoggerTests : public ::hyrise::Test {
+  virtual void SetUp() {
+    StorageManager::getInstance()->clear();
+  };
+};
 
 TEST_F(BufferedLoggerTests, log_test) {
   BufferedLogger::getInstance().truncate();
