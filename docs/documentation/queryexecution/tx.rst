@@ -298,10 +298,12 @@ The endCID vector behaves similar. It stores the CID of the transaction that suc
 +-------+------------+----------+-----------+-------------------------------+
 | 6     | 13         | Inf      | 13        | delete uncommitted            |
 +-------+------------+----------+-----------+-------------------------------+
-| --    | 13         | 14       | 13        | delete commit in prog.        |
+| 6     | 13         | 14       | 13        | delete commit in prog.        |
 +-------+------------+----------+-----------+-------------------------------+
-| --    | 13         | 14       | 14        | delete committed              |
+| 6     | 13         | 14       | 14        | delete committed              |
 +-------+------------+----------+-----------+-------------------------------+
+
+Update: The tid must not be reset during the commit of a delete. Otherwise, a different transaction might successfully acquire the row-level tid lock.
 
 
 Evaluating the visiblity
@@ -312,7 +314,7 @@ When checking if a row is visible to a transaction, three checks have to be made
 +-----------------+--------------------------+------------------------+----------+---------------------------------------+
 | v.TID == tx.TID | tx.LastCID >= v.BeginCID | tx.LastCID >= v.EndCID | Visible? | Comment                               |
 +=================+==========================+========================+==========+=======================================+
-| yes             | yes                      | yes                    | No       | Impossible                            |
+| yes             | yes                      | yes                    | No       | Own Delete, committed                 |
 +-----------------+--------------------------+------------------------+----------+---------------------------------------+
 | no              | yes                      | yes                    | No       | Past Delete                           |
 +-----------------+--------------------------+------------------------+----------+---------------------------------------+
