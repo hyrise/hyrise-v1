@@ -174,6 +174,7 @@ alphabetical order :)
   * Sebastian Blessing
   * Sebastian Hillig
   * Sebastian Klose
+  * Stefan Klauck
   * Tim Berning
   * Tim Zimmermann
   * Uwe Hartmann
