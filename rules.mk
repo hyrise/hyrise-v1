@@ -153,14 +153,14 @@ LINK_DIRS :=
 INCLUDE_DIRS :=
 TOOLING :=
 WITH_PAPI := $(shell if [ "`papi_avail  2>&1 | grep Yes | wc -l`" -ne "0" ]; then echo 1; else echo 0; fi)
-WITH_MYSQL:= 1
 
-PERSISTENCY ?= NONE
 
 include $(PROJECT_ROOT)/settings.mk
 
 BLD ?= debug
 COMPILER ?= g++48
+WITH_MYSQL ?= 0
+PERSISTENCY ?= NONE
 PLUGINS += ccache
 
 ifeq ($(WITH_COVERAGE),1)

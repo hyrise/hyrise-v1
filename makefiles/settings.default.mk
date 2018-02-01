@@ -1,3 +1,6 @@
+# Build settings for Hyrise are controlled with environment variables
+# Default settings are specified in rules.mk
+# However, setting in this file have precedence
 COMPILER ?= autog++
 # options: debug|release
 BLD ?= debug
@@ -7,14 +10,14 @@ BLD ?= debug
 # WITH_V8 := 0
 # WITH_PROFILER := 1
 
-# Per Default HYRISE is compiled without MySQL support, set to 1 to disable
-WITH_MYSQL := 0
+# Per Default HYRISE is compiled without MySQL support, set to 1 to enable
+# WITH_MYSQL ?= 1
 
-PERSISTENCY := NONE
-WITH_GROUP_COMMIT := 0
+# options: NONE|BUFFEREDLOGGER
+# PERSISTENCY ?= BUFFEREDLOGGER
 
 # To enable Link Time Optimization
 # PLUGINS += lto
 
 # See mkpluings for more Build Plugins
-# include mysql.mk
+include mysql.mk

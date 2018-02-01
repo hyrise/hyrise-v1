@@ -95,16 +95,16 @@ To build and execute the test suites using predefined tables issue
 
 The build can be configured through a build settings file `settings.mk`.
 
-Copy the file `settings.mk.default` to `settings.mk` and if necessary
-modify settings. The most prominent one is `PRODUCTION` to
-disable the debug build and `HYRISE_ALLOCATOR` for using `tcmalloc` or
+Copy the file `makefiles/settings.mk.default` to `settings.mk` and if necessary
+modify settings. The most prominent option is setting `BLD` to `release`, which disables the `debug` build,
+and `HYRISE_ALLOCATOR` for using `tcmalloc` or
 `jemalloc` instead of the libc allocator.
 
 To enable an optimized production build with g++-4.8, a `settings.mk` file
 may look as follows:
 
-    COMPILER := g++48
-    PRODUCTION := 1
+    COMPILER ?= g++48
+    BLD ?= release
 
 When the settings file has been changed, running `make` should result in a
 complete rebuild of HYRISE.

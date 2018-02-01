@@ -22,9 +22,9 @@ echo Number of records: $((`wc -l $BENCHMARKFILE | cut -d " " -f 1` - 4))
 echo "Reporting mean runtime in usec"
 echo
 
-if [ -n "`grep 'PRODUCTION := 0' settings.mk`" ]
+if [ -n "`grep 'BLD ?= release' settings.mk`" ]
 then
-	echo "PRODUCTION seems to be set to 0 in settings.mk. Are you sure you want to run the benchmark?"
+	echo "BLD seems to be set to debug. Are you sure you want to run the benchmark?"
 fi
 
 PROCESSORS=`grep -c ^processor /proc/cpuinfo`
