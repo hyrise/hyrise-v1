@@ -7,8 +7,8 @@ BLD ?= debug
 # WITH_V8 := 0
 # WITH_PROFILER := 1
 
-# Per Default HYRISE is compiled with MySQL support, set to 0 to disable
-# WITH_MYSQL := 0
+# Per Default HYRISE is compiled without MySQL support, set to 1 to disable
+WITH_MYSQL := 0
 
 PERSISTENCY := NONE
 WITH_GROUP_COMMIT := 0
@@ -17,5 +17,4 @@ WITH_GROUP_COMMIT := 0
 # PLUGINS += lto
 
 # See mkpluings for more Build Plugins
-
-include mysql.mk
+# include mysql.mk

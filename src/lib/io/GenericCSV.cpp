@@ -11,7 +11,7 @@
 #include <memory>
 
 #include <string.h>
-#include <libcsv/csv.h>
+#include <csv.h>
 
 namespace hyrise {
 namespace io {

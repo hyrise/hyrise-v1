@@ -1,12 +1,12 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #pragma once
 
+#include <csv.h>
 #include <iosfwd>
 #include <stdexcept>
 #include <string>
 #include <vector>
 
-#include <libcsv/csv.h>
 
 #include "storage/storage_types.h"
 
