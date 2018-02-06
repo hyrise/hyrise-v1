@@ -23,6 +23,8 @@
 #include "io/StorageManager.h"
 #include "access/CheckpointDaemon.h"
 #include "taskscheduler/SharedScheduler.h"
+#include "io/GroupCommitter.h"
+#include "net/ClusterInterface.h"
 
 namespace po = boost::program_options;
 using namespace hyrise;
@@ -36,6 +38,7 @@ const char* PORT_FILE = "./hyrise_server.port";
 const size_t DEFAULT_PORT = 5000;
 // default maximum task size. 0 is disabled.
 const size_t DEFAULT_MTS = 0;
+const size_t INITIAL_MASTERNODE_ID = 0;
 
 
 LoggerPtr logger(Logger::getLogger("hyrise"));
@@ -70,38 +73,38 @@ int main(int argc, char* argv[]) {
   size_t checkpoint_interval = 0;
   bool recover = 0;
   bool recoverAndExit = 0;
+  
+  // Replication Parameters
   size_t commit_window_ms = 0;
+  size_t nodeId = 0;
+  std::string master_url;
+  std::string dispatcher_url;
+  size_t dispatcher_port = 0;
 
   // Program Options
   po::options_description desc("Allowed Parameters");
-  desc.add_options()("help", "Shows this help message")(
-      "port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")(
-      "logdef,l",
-      po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"),
-      "Log4CXX Log Properties File")(
-      "maxTaskSize,m",
-      po::value<size_t>(&maxTaskSize)->default_value(DEFAULT_MTS),
-      "Maximum task size used in dynamic parallelization scheduler. Use 0 for unbounded task run time.")(
-      "scheduler,s",
-      po::value<std::string>(&scheduler_name)->default_value("CentralScheduler"),
-      "Name of the scheduler to use")
-      // set default number of worker threads to #cores-1, as main thread with event loop is bound to core 0
-      ("threads,t",
-       po::value<int>(&worker_threads)->default_value(getNumberOfCoresPerNumaNode() - NUM_RESERVED_CORES),
-       "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)")(
-          "recover,r", po::value<bool>(&recover)->zero_tokens(), "Recover tables on load")(
-          "recoverAndExit,x",
-          po::value<bool>(&recoverAndExit)->zero_tokens(),
-          "Recover tables on load and exit (for benchmarking purposes)")(
-          "nodes",
-          po::value<std::string>(&numa_nodes_str)->default_value(""),
-          "comma-separated list of NUMA-nodes to use (e.g., 0,2) - defaults to all - CURRENTLY UNUSED")
+  desc.add_options()
+    ("help", "Shows this help message")
+    ("port,p", po::value<size_t>(&port)->default_value(DEFAULT_PORT), "Server Port")
+    ("logdef,l", po::value<std::string>(&logPropertyFile)->default_value("build/log.properties"), "Log4CXX Log Properties File")
+    ("maxTaskSize,m", po::value<size_t>(&maxTaskSize)->default_value(DEFAULT_MTS), "Maximum task size used in dynamic parallelization scheduler. Use 0 for unbounded task run time.")
+    ("scheduler,s", po::value<std::string>(&scheduler_name)->default_value("CentralScheduler"), "Name of the scheduler to use")
+    // set default number of worker threads to #cores-1, as main thread with event loop is bound to core 0
+    ("threads,t", po::value<int>(&worker_threads)->default_value(getNumberOfCoresPerNumaNode() - NUM_RESERVED_CORES), "Number of worker threads for scheduler (only relevant for scheduler with fixed number of threads)")
+    ("recover,r", po::value<bool>(&recover)->zero_tokens(), "Recover tables on load")
+    ("recoverAndExit,x", po::value<bool>(&recoverAndExit)->zero_tokens(), "Recover tables on load and exit (for benchmarking purposes)")
+    ("nodes", po::value<std::string>(&numa_nodes_str)->default_value(""), "comma-separated list of NUMA-nodes to use (e.g., 0,2) - defaults to all - CURRENTLY UNUSED")
 #ifdef PERSISTENCY_BUFFEREDLOGGER
-      ("checkpointInterval,c",
-       po::value<size_t>(&checkpoint_interval)->default_value(0),
-       "Interval for checkpointing in ms")(
-          "commitWindow", po::value<size_t>(&commit_window_ms)->default_value(50), "Commit window in ms")
+    ("checkpointInterval,c", po::value<size_t>(&checkpoint_interval)->default_value(0), "Interval for checkpointing in ms")
+    ("commitWindow", po::value<size_t>(&commit_window_ms)->default_value(50), "Commit window in ms")
 #endif
+
+    // Replication Options
+    ("nodeId,n", po::value<size_t>(&nodeId)->default_value(0), "The master has the id 0.")
+    ("masterurl", po::value<std::string>(&master_url)->default_value("127.0.0.1"), "URL of replication master")
+    ("dispatcherurl", po::value<std::string>(&dispatcher_url)->default_value("127.0.0.1"), "URL of dispatcher in the cluster")
+    ("dispatcherport", po::value<size_t>(&dispatcher_port)->default_value(6666), "Port of dispatcher in the cluster")
+    ("commitWindow", po::value<size_t>(&commit_window_ms)->default_value(50), "Commit window in ms")
       ;
   po::variables_map vm;
 
@@ -162,6 +165,10 @@ int main(int argc, char* argv[]) {
   Settings::getInstance()->numa_nodes = numa_nodes;
   Settings::getInstance()->numa_cores = numa_cores;
   Settings::getInstance()->commit_window_ms = commit_window_ms;
+  Settings::getInstance()->setNodeId(nodeId);
+  Settings::getInstance()->master_url = master_url;
+  Settings::getInstance()->dispatcher_url = dispatcher_url;
+  Settings::getInstance()->dispatcher_port = dispatcher_port;
   Settings::getInstance()->printInfo();
 
 
@@ -195,6 +202,21 @@ int main(int argc, char* argv[]) {
 
   taskscheduler::SharedScheduler::getInstance().init(scheduler_name, worker_threads, maxTaskSize);
 
+#ifdef WITH_REPLICATION
+  if (nodeId == INITIAL_MASTERNODE_ID) {
+    io::GroupCommitter::getInstance();
+    std::cout << "Started hyrise master!" << std::endl;
+  }
+  else {
+    std::cout << "Started hyrise slave!" << std::endl;
+  }
+
+  net::ClusterInterface::getInstance().setNodeId(nodeId);
+  net::ClusterInterface::getInstance().setMasterUrl(master_url);
+  net::ClusterInterface::getInstance().setCurrentMasternodeId(INITIAL_MASTERNODE_ID);
+  net::ClusterInterface::getInstance().start();
+#endif
+  
   // Main Server Loop
   struct ev_loop* loop = ev_default_loop(0);
   ebb_server server;

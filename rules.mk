@@ -160,6 +160,7 @@ include $(PROJECT_ROOT)/settings.mk
 BLD ?= debug
 COMPILER ?= g++48
 WITH_MYSQL ?= 0
+REPLICATION ?= 0
 PERSISTENCY ?= NONE
 PLUGINS += ccache
 
@@ -168,6 +169,10 @@ PLUGINS += coverage
 endif
 
 COMMON_FLAGS += -D PERSISTENCY_$(PERSISTENCY)
+
+ifeq ($(REPLICATION), 1)
+COMMON_FLAGS += -D WITH_REPLICATION
+endif
 
 ifeq ($(WITH_PROFILER),1)
 PLUGINS += profiler
@@ -213,6 +218,8 @@ LINK_DIRS += /usr/local/lib
 # This should indeed be done by all the components themselves
 INCLUDE_DIRS += $(PROJECT_ROOT)/src/lib
 LDFLAGS += $(LDFLAGS.$(BLD))
+
+LDFLAGS += -lpthread -lanl
 
 .PHONY          : all clean test ci_test ci_build ci_valgrind_test
 .DEFAULT_GOAL   := all

@@ -9,6 +9,9 @@
 #include "helper/types.h"
 #include <helper/barrier.h>
 
+#include <tbb/concurrent_unordered_map.h>
+#include <tbb/concurrent_vector.h>
+
 namespace hyrise {
 namespace io {
 
@@ -20,7 +23,7 @@ class BufferedLogger {
   static BufferedLogger& getInstance();
 
   template <typename T>
-  inline T read_value(char*& cursor) {
+  inline T read_value(const char*& cursor) {
     cursor -= (sizeof(T) - 1);
     auto value = *(T*)cursor;
     --cursor;
@@ -28,7 +31,7 @@ class BufferedLogger {
   }
 
   template <typename T>
-  inline std::string read_string(char*& cursor) {
+  inline std::string read_string(const char*& cursor) {
     auto size = read_value<T>(cursor);
     cursor -= (size - 1);
     std::string text(cursor, size);
@@ -57,7 +60,7 @@ class BufferedLogger {
                             storage::value_id_t value_id) {
     if (table_name.empty())
       return;
-    char entry[90];
+    char entry[530];
     char* cursor = entry;
     logDictionaryValue(cursor, value);
     write_value<storage::value_id_t>(cursor, value_id);
@@ -65,7 +68,7 @@ class BufferedLogger {
     write_string<char>(cursor, table_name);
     write_value<char>(cursor, 'D');
     unsigned int len = cursor - entry;
-    assert(len <= 90);
+    assert(len <= 530);
     _append(entry, len);
   }
 
@@ -85,11 +88,13 @@ class BufferedLogger {
                        const std::string& table_name,
                        const storage::pos_t invalidated_row);
 
-  void logCommit(tx::transaction_id_t transaction_id);
+  size_t logCommit(tx::transaction_id_t transaction_id);
   void logRollback(tx::transaction_id_t transaction_id);
-  void flush(bool blocking = true);
+  void flush(bool blocking = true, size_t up_to_pos = 0);
+  void writeLogMeta(size_t pos_in_logfile, tx::transaction_id_t last_tid);
   void truncate();
   void restore(const size_t thread_count);
+  void replicate(const char* logfile, size_t size, bool failover=false);
 
   size_t startCheckpoint();
   size_t endCheckpoint();
@@ -105,10 +110,14 @@ class BufferedLogger {
     return _checkpoint_id;
   };
 
+  bool checkpointFound() {
+    return _checkpointFound;
+  }
+
  private:
   BufferedLogger();
 
-  void _append(const char* str, const unsigned char len);
+  size_t _append(const char* str, const size_t len);
 
   void restore_thread(char* logfile,
                       size_t start_block,
@@ -118,15 +127,25 @@ class BufferedLogger {
                       std::vector<bool>& committed_tid_bitvector,
                       std::vector<bool>& rolledback_tid_bitvector,
                       thread_barrier& barrier);
+  void replicate_thread(const char* logfile,
+                        size_t start_block,
+                        size_t end_block,
+                        size_t leftovers,
+                        size_t thread_id,
+                        tx::transaction_cid_t lastCID,
+                        thread_barrier& barrier,
+                        const char *&end_pos);
 
-  char* getBufferWriteArea(const size_t size);
+  size_t getBufferWriteArea(const size_t size);
   void writePaddingEntry(size_t absolute_write_pos, size_t padding);
 
   inline char* getBufferPointerAtPos(size_t pos) { return _buffer + (pos % _buffer_capacity); }
 
-  inline unsigned char getBufferValueAtPos(size_t pos) { return *((unsigned char*)getBufferPointerAtPos(pos)); }
+  template<typename T>
+  inline T getBufferValueAtPos(size_t pos) { return *((T*)getBufferPointerAtPos(pos)); }
 
   FILE* _logfile;
+  FILE* _logmetafile;
   char* _buffer;
   char* _head;
   char* _tail;
@@ -137,15 +156,35 @@ class BufferedLogger {
   std::mutex _checkpointMutex;
   std::mutex _fileMutex;
   std::mutex _flushMutex;
+  std::mutex _resizeMutex;
   std::atomic<size_t> _buffer_size;
   std::atomic<size_t> _total_logsize;
   std::atomic<size_t> _checkpoint_id;
 
+  bool _checkpointFound;
   bool _changes_since_last_checkpoint;
   std::string _logdir;
+
+  tx::transaction_id_t _last_tid;
+
+  // only for replication
+  tx::transaction_id_t _lastCommittedTID;
+  tbb::concurrent_unordered_map<tx::transaction_id_t, uintptr_t> _committed;
+  tbb::concurrent_unordered_map<tx::transaction_id_t, bool> _rolled_back;
+  tbb::concurrent_vector<std::tuple<storage::store_ptr_t, tx::transaction_id_t, storage::pos_t>> _pending_inserts;
+  tbb::concurrent_vector<std::tuple<storage::store_ptr_t, tx::transaction_id_t, storage::pos_t>> _pending_deletes;
+  bool _skipRedundant;
 };
 
 template <>
 void BufferedLogger::logDictionaryValue(char*& cursor, const storage::hyrise_string_t& value);
+
+template <>
+inline void BufferedLogger::write_value(char*& cursor, const tx::transaction_id_t value) {
+  *(tx::transaction_id_t*)cursor = value;
+  cursor += sizeof(tx::transaction_id_t);
+  _last_tid = value;
+}
+
 }
 }

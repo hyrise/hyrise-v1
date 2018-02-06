@@ -15,6 +15,7 @@ BLD ?= debug
 
 # options: NONE|BUFFEREDLOGGER
 # PERSISTENCY ?= BUFFEREDLOGGER
+# REPLICATION ?= 1
 
 # To enable Link Time Optimization
 # PLUGINS += lto

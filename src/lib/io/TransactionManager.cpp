@@ -77,6 +77,15 @@ transaction_id_t TransactionManager::getTransactionId() {
 
 transaction_cid_t TransactionManager::getLastCommitId() { return _lastFinishedCommitId; }
 
+void TransactionManager::setLastCommitId(transaction_cid_t cid) {
+  _lastFinishedCommitId = cid;
+  _nextCommitId = cid + 1;
+}
+
+void TransactionManager::adjustLastCommitContextCid() {
+  _lastTXCommitContext->cid = _lastFinishedCommitId;
+}
+
 TXContext TransactionManager::buildContext() {
   return {getTransactionId(), getLastCommitId()};
 }
@@ -133,9 +142,9 @@ void TransactionManager::endTransaction(transaction_id_t tid, bool flush_log) {
 
 #ifdef PERSISTENCY_BUFFEREDLOGGER
   // log commit entry and flush the log
-  io::Logger::getInstance().logCommit(tid);
+  size_t commit_pos = io::Logger::getInstance().logCommit(tid);
   if (flush_log)
-    io::Logger::getInstance().flush();
+    io::Logger::getInstance().flush(true, commit_pos);
 #endif
 
   // Clear all relevant data for this transaction

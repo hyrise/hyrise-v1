@@ -28,6 +28,7 @@ class Settings {
   ADD_MEMBER(std::string, ScriptPath);
   ADD_MEMBER(std::string, ProfilePath);
   ADD_MEMBER(std::string, DBPath);
+  ADD_MEMBER(size_t, NodeId);
 
   Settings();
 
@@ -51,6 +52,9 @@ class Settings {
   std::vector<size_t> numa_nodes, numa_cores;
   std::string scheduler_name;
   size_t commit_window_ms;
+  std::string master_url;
+  std::string dispatcher_url;
+  size_t dispatcher_port;
 
   std::string getPersistencyDir() {
     char *persistencyDir = getenv("HYRISE_PERSISTENCY_PATH");

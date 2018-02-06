@@ -41,6 +41,10 @@ class NoLogger {
     // do nothing
   }
 
+  void replicate(const char* logfile, size_t size, bool failover=false) {
+    // do nothing
+  }
+
  private:
   NoLogger() {
     // do nothing

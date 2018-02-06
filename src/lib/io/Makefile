@@ -7,10 +7,11 @@ include $(PROJECT_ROOT)/third_party/Makefile
 include $(PROJECT_ROOT)/src/lib/helper/Makefile
 include $(PROJECT_ROOT)/src/lib/storage/Makefile
 include $(PROJECT_ROOT)/src/lib/taskscheduler/Makefile
+include $(PROJECT_ROOT)/src/lib/net/Makefile
 
 hyr-io.libname := hyr-io
 hyr-io.libs := csv boost_system boost_filesystem
-hyr-io.deps := hyr-helper hyr-storage hyr-taskscheduler cereal optional json
+hyr-io.deps := hyr-helper hyr-storage hyr-taskscheduler hyr-net cereal optional json
 
 ifeq ($(WITH_MYSQL), 1)
 hyr-io.libs += mysqlclient

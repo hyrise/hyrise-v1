@@ -150,6 +150,11 @@ class TransactionManager {
   // get the last valid commit id for visibility
   transaction_id_t getLastCommitId();
 
+  // set the last commit id, used by replication mechanism
+  void setLastCommitId(transaction_cid_t cid);
+
+  void adjustLastCommitContextCid();
+
   /*
   * Builds the transaction context by fetching the new transaction id and the
   * last commit id
