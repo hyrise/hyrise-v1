@@ -6,12 +6,12 @@
 #include "access/system/PlanOperation.h"
 #include "access/PipelineObserver.h"
 #include "access/PipelineEmitter.h"
+#include "access/expressions/Expression.h"
 #include "helper/types.h"
+
 
 namespace hyrise {
 namespace access {
-
-class AbstractExpression;
 
 /// Implements registration based expression scan
 class PipeliningTableScan : public PlanOperation,
@@ -20,7 +20,7 @@ class PipeliningTableScan : public PlanOperation,
  public:
   /// Construct TableScan for a specific expression, take
   /// ownership of passed in expression
-  explicit PipeliningTableScan(std::unique_ptr<AbstractExpression> expr);
+  explicit PipeliningTableScan(std::unique_ptr<Expression> expr);
   /// Parse TableScan from
   const std::string vname() { return "PipeliningTableScan"; }
   static std::shared_ptr<PlanOperation> parse(const Json::Value& data);
@@ -31,7 +31,7 @@ class PipeliningTableScan : public PlanOperation,
   virtual std::shared_ptr<AbstractPipelineObserver> clone() override;
 
  private:
-  std::unique_ptr<AbstractExpression> _expr;
+  std::unique_ptr<Expression> _expr;
   storage::c_atable_ptr_t _table;
   void createAndEmitChunk(pos_list_t* positions);
 };

@@ -139,6 +139,9 @@ endef
 PROJECT_ROOT := $(TOP)
 OSNAME := $(shell uname -s)
 
+### ugly hack
+GENERATED_EXPRESSIONS := $(shell make -C $(PROJECT_ROOT)/src/lib/access/expressions/expressionGeneration all)
+
 %.mk: makefiles/%.default.mk
 	@[ -e $@ ] || echo "Grabbing default $@"; cp $< $@
 	@touch $@
@@ -251,6 +254,7 @@ all: $$(all)
 
 clean:
 	rm -rf $(OBJDIR) $(all)
+	rm -rf $(PROJECT_ROOT)/src/lib/access/expressions/expressionGeneration/generatedExpressions
 
 
 # Ensure that intermediate files (e.g. the foo.o caused by "foo : foo.c")

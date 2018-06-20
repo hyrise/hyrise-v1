@@ -1,0 +1,34 @@
+{
+	"operators" : {
+		"rl" : {
+			"type" : "JsonTable",
+			"names" : ["company_id", "company_name", "company_value", "company_members", "company_shares"],
+			"types" :  ["INTEGER", "STRING", "FLOAT", "INTEGER", "INTEGER"],
+			"groups" : [1,1,1,1,1],
+			"useStore" : true,
+			"data" : [
+				[2, "Microsoft", 19.6, 19000, 11000]
+			]
+		},
+		"set" : {
+			"type" : "SetTable",
+			"name" : "reference"
+		},
+
+		"load" : {
+            "type": "LoadFile",
+            "filename": "reference/janExpression.tbl"
+        },
+		"special" : {
+			"type" : "ExpressionTableScan",
+           	"expression" : "EQ_STRING",
+           	"columns" : [1],
+           	"values" : ["Microsoft"]
+		}
+	}, 
+	"edges" : [
+		["rl", "set"],
+		["set", "load"],
+		["load", "special"]
+	]
+}

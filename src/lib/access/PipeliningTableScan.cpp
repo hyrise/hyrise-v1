@@ -1,9 +1,7 @@
 // Copyright (c) 2012 Hasso-Plattner-Institut fuer Softwaresystemtechnik GmbH. All rights reserved.
 #include "access/PipeliningTableScan.h"
 
-#include "access/expressions/ExampleExpression.h"
-#include "access/expressions/pred_SimpleExpression.h"
-#include "access/expressions/ExpressionRegistration.h"
+#include "access/expressions/ExpressionLibrary.h"
 #include "storage/PointerCalculator.h"
 #include "storage/TableRangeView.h"
 #include "helper/types.h"
@@ -22,7 +20,7 @@ auto _ = QueryParser::registerPlanOperation<PipeliningTableScan>("PipeliningTabl
 log4cxx::LoggerPtr _logger(log4cxx::Logger::getLogger("hyrise.access"));
 }
 
-PipeliningTableScan::PipeliningTableScan(std::unique_ptr<AbstractExpression> expr) : _expr(std::move(expr)) {}
+PipeliningTableScan::PipeliningTableScan(std::unique_ptr<Expression> expr) : _expr(std::move(expr)) {}
 
 void PipeliningTableScan::setupPlanOperation() {
   const auto& table = getInputTable();
@@ -32,13 +30,14 @@ void PipeliningTableScan::setupPlanOperation() {
     return;
   }
 
+
   auto tablerange = std::dynamic_pointer_cast<const storage::TableRangeView>(table);
   if (tablerange) {
     _table = tablerange->getActualTable();
-    _expr->walk({tablerange->getActualTable()});
+    _expr->setup({tablerange->getActualTable()});
   } else {
     _table = table;
-    _expr->walk({table});
+    _expr->setup({table});
   }
 }
 
@@ -64,7 +63,7 @@ void PipeliningTableScan::executePlanOperation() {
     for (size_t chunk = 0; chunk < ((stop - start) / 100000 + 1); ++chunk) {
       size_t partial_start = start + chunk * 100000;
       size_t partial_stop = std::min(partial_start + 100000, stop);
-      _expr->match(positions, partial_start, partial_stop);
+      _expr->evaluateMain(positions, partial_start, partial_stop);
       if (positions->size() >= _chunkSize) {
         createAndEmitChunk(positions);
         positions = new pos_list_t();
@@ -91,7 +90,7 @@ std::shared_ptr<AbstractPipelineObserver> PipeliningTableScan::clone() {
 }
 
 std::shared_ptr<PlanOperation> PipeliningTableScan::parse(const Json::Value& data) {
-  auto instance = std::make_shared<PipeliningTableScan>(Expressions::parse(data["expression"].asString(), data));
+  auto instance = std::make_shared<PipeliningTableScan>(ExpressionLibrary::getInstance().dispatchAndParse(data));
   instance->_chunkSize = data["chunkSize"].asUInt();
   return instance;
 }

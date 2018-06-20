@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <mutex>
 #include "helper/not_implemented.h"
 #include "storage/BaseDictionary.h"
 #include "storage/DictionaryIterator.h"

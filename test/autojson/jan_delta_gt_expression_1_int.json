@@ -1,0 +1,42 @@
+{
+	"operators" : {
+		"rl" : {
+			"type" : "JsonTable",
+			"names" : ["company_id", "company_name"],
+			"types" :  ["INTEGER", "STRING"],
+			"groups" : [1,1],
+			"useStore" : true,
+			"data" : [
+				[6, "Philips"],
+				[7, "Samsung"]
+			]
+		},
+		"set" : {
+			"type" : "SetTable",
+			"name" : "reference"
+		},
+
+		"load" : {
+            "type": "LoadFile",
+            "filename": "reference/janExpressionSimple.tbl"
+        },
+        "insert" : {
+            "type" : "InsertScan",
+            "data" : [
+                [7,"Samsung"], [6, "Philips"], [5, "Dell"] 
+            ]
+        },
+		"special" : {
+			"type" : "ExpressionTableScan",
+           	"expression" : "GT_INT",
+           	"columns" : [0],
+           	"values" : [5]
+		}
+	}, 
+	"edges" : [
+		["rl", "set"],
+		["set", "load"],
+		["load", "insert"],
+		["insert", "special"]
+	]
+}

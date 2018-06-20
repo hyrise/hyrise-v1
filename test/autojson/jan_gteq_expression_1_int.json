@@ -1,0 +1,35 @@
+{
+	"operators" : {
+		"rl" : {
+			"type" : "JsonTable",
+			"names" : ["company_id", "company_name", "company_value", "company_members", "company_shares"],
+			"types" :  ["INTEGER", "STRING", "FLOAT", "INTEGER", "INTEGER"],
+			"groups" : [1,1,1,1,1],
+			"useStore" : true,
+			"data" : [
+				[3, "SAP AG", 18.2, 18000, 16000],
+				[4, "Oracle", 17.8, 17000, 9000]
+			]
+		},
+		"set" : {
+			"type" : "SetTable",
+			"name" : "reference"
+		},
+
+		"load" : {
+            "type": "LoadFile",
+            "filename": "reference/janExpression.tbl"
+        },
+		"special" : {
+			"type" : "ExpressionTableScan",
+           	"expression" : "GTEQ_INT",
+           	"columns" : [0],
+           	"values" : [3]
+		}
+	}, 
+	"edges" : [
+		["rl", "set"],
+		["set", "load"],
+		["load", "special"]
+	]
+}

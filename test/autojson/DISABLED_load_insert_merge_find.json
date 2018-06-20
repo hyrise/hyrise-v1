@@ -8,7 +8,6 @@
             "type": "JsonTable",    
             "names": ["left", "right", "status"],
             "types" : ["INTEGER", "INTEGER", "INTEGER"],
-            "groups" : [1,1,1],
             "useStore": true,
             "data" : [                
                 ["1","4","1"]
@@ -18,7 +17,6 @@
             "type": "JsonTable",    
             "names": ["left", "right", "status"],
             "types" : ["INTEGER", "INTEGER", "INTEGER"],
-            "groups" : [1,1,1],
             "useStore": true            
         },
         "set" : {
@@ -44,11 +42,10 @@
             "type": "MergeStore"
         },
         "search" : {
-          "type" : "TableScan",
-          "expression" : "hyrise::Store_FLV_F1_EQ_INT",
-          "withDelta" : true,
-          "f1": 2,
-          "v_f1" : 1
+          "type" : "ExpressionTableScan",
+          "expression" : "EQ_INT",
+          "columns" : [2],
+          "values" : [1]
       }
     },
     "edges" : [
